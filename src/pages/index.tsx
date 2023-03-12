@@ -1,7 +1,7 @@
 import { type NextPage } from "next";
 import { signIn, useSession } from "next-auth/react";
 import Head from "next/head";
-import { Button, Input } from "@mantine/core";
+import { Button } from "@mantine/core";
 
 const Home: NextPage = () => {
   const { data: session } = useSession();
@@ -33,7 +33,7 @@ const Home: NextPage = () => {
       <main>
         <h1>Welcome to Modal Lesson</h1>
         <Button color="violet" onClick={() => void signIn()}>
-          asdf
+          Sign in
         </Button>
       </main>
     </>
