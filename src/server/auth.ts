@@ -8,6 +8,7 @@ import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { env } from "~/env.mjs";
 import { prisma } from "~/server/db";
+import { stripe } from "~/server/api/client";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -45,6 +46,30 @@ export const authOptions: NextAuthOptions = {
       return session;
     },
   },
+  events: {
+    createUser: async ({ user }) => {
+      if (!env.STRIPE_SECRET_KEY) {
+        throw new Error("Missing Stripe key");
+      }
+
+      try {
+        await stripe.customers
+          .create({
+            email: user.email as string | undefined,
+          })
+          .then(async (customer) => {
+            await prisma.user.update({
+              where: { id: user.id },
+              data: {
+                stripeCustomerId: customer.id,
+              },
+            });
+          });
+      } catch (error) {
+        console.log("Something went wrong", { catch: error });
+      }
+    },
+  },
   adapter: PrismaAdapter(prisma),
   providers: [
     GoogleProvider({
@@ -54,9 +79,9 @@ export const authOptions: NextAuthOptions = {
         params: {
           prompt: "consent",
           access_type: "offline",
-          response_type: "code"
-        }
-      }
+          response_type: "code",
+        },
+      },
     }),
     /**
      * ...add more providers here.

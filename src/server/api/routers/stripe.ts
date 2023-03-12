@@ -22,8 +22,8 @@ export const stripeRouter = createTRPCRouter({
           },
         ],
         mode: "subscription",
-        success_url: `${env.BASE_URL}/?success=true"`,
-        cancel_url: `${env.BASE_URL}?canceled=true"`,
+        success_url: `${env.BASE_URL}/pricing/?success=true`,
+        cancel_url: `${env.BASE_URL}/pricing/?canceled=true`,
       });
       return session.url;
     }),
