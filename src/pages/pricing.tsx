@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { api } from "~/utils/api";
 import { type Url } from "next/dist/shared/lib/router/router";
 import { useEffect } from "react";
+import { PriceCard } from "~/components/PriceCard";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const stripePromise = loadStripe(env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
@@ -61,7 +62,8 @@ export default function Page() {
 
   return (
     <div>
-      <h1>Modal Lesson Pricing</h1>
+      <h1>Price Plans</h1>
+      <PriceCard />
       <button onClick={() => handleCheckout(premiumPlan?.id as string)}>
         Premium Plan
       </button>
