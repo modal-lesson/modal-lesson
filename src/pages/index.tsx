@@ -1,6 +1,9 @@
 import { type NextPage } from "next";
 import { signIn, useSession } from "next-auth/react";
 import Head from "next/head";
+import { Hero } from "~/components/Hero";
+import { Waitlist } from "~/components/Waitlist";
+import { Window } from "~/components/Window";
 
 const Home: NextPage = () => {
   const { data: session } = useSession();
@@ -29,9 +32,10 @@ const Home: NextPage = () => {
           href="/favicon-16x16.png"
         />
       </Head>
-      <main>
-        <h1>Welcome to Modal Lesson</h1>
-        <button onClick={() => void signIn()}>Sign in</button>
+      <main className="flex-grow">
+        <Hero />
+        <Waitlist />
+        <Window />
       </main>
     </>
   );

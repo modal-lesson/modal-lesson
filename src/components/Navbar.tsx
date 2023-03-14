@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Login } from "./Login";
 
 export function Navbar() {
   return (
@@ -50,7 +51,7 @@ export function Navbar() {
         </ul>
       </div>
       <div className="navbar-end">
-        <a className="btn">Login</a>
+        <Login />
       </div>
     </div>
   );
