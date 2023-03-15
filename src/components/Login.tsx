@@ -1,4 +1,14 @@
+import { signIn } from "next-auth/react";
+
 export function Login() {
+  const handleLogin = async () => {
+    try {
+      await signIn("google", { callbackUrl: "/home" });
+    } catch (error) {
+      console.log("Something went wrong: ", { catch: error });
+    }
+  };
+
   return (
     <>
       <label htmlFor="my-modal" className="btn">
@@ -12,13 +22,14 @@ export function Login() {
             className="modal-box relative flex max-w-[330px] flex-col items-center justify-center"
             htmlFor=""
           >
-            <h3 className="text-lg font-bold uppercase tracking-[0.15rem]">
+            <h3 className="text-lg font-bold uppercase tracking-[0.15rem] text-primary">
               MODAL LESSON
             </h3>
             <p className="py-4 font-bold">Create an account or sign in</p>
             <button
               className="btn w-64 tracking-wider font-bold"
-              // onClick={handleLogin}
+              // eslint-disable-next-line @typescript-eslint/no-misused-promises
+              onClick={handleLogin}
             >
               <img
                 className="mr-2"
@@ -35,7 +46,7 @@ export function Login() {
               <input
                 type="email"
                 placeholder="Email address"
-                className="input-bordered input w-full max-w-xs"
+                className="input-bordered input input-primary w-full max-w-xs"
               />
               <button className="btn-primary btn my-4 w-full">Continue</button>
             </div>
