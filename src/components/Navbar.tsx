@@ -3,10 +3,10 @@ import { Login } from "./Login";
 
 export function Navbar() {
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar bg-transparent">
       <div className="navbar-start">
         <div className="dropdown">
-          <label tabIndex={0} className="btn btn-ghost lg:hidden">
+          <label tabIndex={0} className="btn-ghost btn lg:hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
@@ -24,7 +24,7 @@ export function Navbar() {
           </label>
           <ul
             tabIndex={0}
-            className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+            className="dropdown-content menu rounded-box menu-compact mt-3 w-52 bg-base-100 p-2 shadow"
           >
             <li>
               <Link href="/pricing">Pricing</Link>
@@ -35,7 +35,7 @@ export function Navbar() {
             </li>
           </ul>
         </div>
-        <Link href="/" className="btn btn-ghost normal-case text-xl">
+        <Link href="/" className="btn-ghost btn text-xl normal-case">
           MODAL LESSON
         </Link>
       </div>
