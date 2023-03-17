@@ -1,7 +1,10 @@
+import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { Login } from "./Login";
 
 export function Navbar() {
+  const { data: session } = useSession();
+
   return (
     <div className="navbar bg-transparent">
       <div className="navbar-start">
@@ -40,19 +43,65 @@ export function Navbar() {
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
-          <li>
-            <Link href="/pricing">Pricing</Link>
-          </li>
-
-          <li>
-            <Link href="/">Contact</Link>
-          </li>
-        </ul>
+        {session
+          ? SIGNED_IN_NAV.map((item) => (
+              <ul key={item.label} className="menu menu-horizontal px-1">
+                <li>
+                  <Link href={item.href}>{item.label}</Link>
+                </li>
+              </ul>
+            ))
+          : NOT_SIGNED_IN_NAV.map((item) => (
+              <ul key={item.label} className="menu menu-horizontal px-1">
+                <li>
+                  <Link href={item.href}>{item.label}</Link>
+                </li>
+              </ul>
+            ))}
       </div>
+
       <div className="navbar-end">
-        <Login />
+        {session ? (
+          <button
+            className="btn"
+            onClick={() => void signOut({ callbackUrl: "/" })}
+          >
+            Sign out
+          </button>
+        ) : (
+          <Login />
+        )}
       </div>
     </div>
   );
 }
+
+const NOT_SIGNED_IN_NAV = [
+  {
+    href: "/pricing",
+    label: "Pricing",
+  },
+  {
+    href: "/contact",
+    label: "Contact",
+  },
+];
+
+const SIGNED_IN_NAV = [
+  {
+    href: "/dashboard",
+    label: "Dashboard",
+  },
+  {
+    href: "/planbook",
+    label: "Planbook",
+  },
+  {
+    href: "/my-lessons",
+    label: "My Lessons",
+  },
+  {
+    href: "/settings",
+    label: "Settings",
+  },
+];
