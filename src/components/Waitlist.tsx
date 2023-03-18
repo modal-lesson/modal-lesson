@@ -1,3 +1,5 @@
+import { Input } from "./ui/Input";
+
 export function Waitlist() {
   return (
     <section className="relative flex justify-between mb-10 p-10 bg-base-300 rounded-xl my-0 mx-auto max-w-3xl">
@@ -8,7 +10,9 @@ export function Waitlist() {
         </h2>
       </div>
       <div>
-        <input
+        <Input
+          // inputSize="xs"
+          name="blah"
           type="text"
           placeholder="Email"
           className="input input-bordered input-primary w-full mb-5"
