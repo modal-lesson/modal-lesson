@@ -3,12 +3,7 @@
 @tailwind utilities;
 
 @layer base {
-  /* body {
-    background-image: linear-gradient(
-      to right bottom,
-      rgb(24, 24, 27),
-      rgb(39, 39, 42),
-      rgb(22, 78, 99)
-    );
-  } */
+  body {
+    background: #dad7cd;
+  }
 }

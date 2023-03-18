@@ -3,6 +3,7 @@ import { signIn, useSession } from "next-auth/react";
 import Head from "next/head";
 import { Feature } from "~/components/Feature";
 import { Hero } from "~/components/Hero";
+import { Nav } from "~/components/Nav";
 import { Waitlist } from "~/components/Waitlist";
 import { Window } from "~/components/Window";
 

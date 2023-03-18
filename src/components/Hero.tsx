@@ -12,7 +12,7 @@ export function Hero() {
           excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a
           id nisi.
         </p>
-        <button className="btn-primary btn text-white">get started</button>
+        <button className="bg-accent text-white">get started</button>
       </div>
       <div>
         <img
