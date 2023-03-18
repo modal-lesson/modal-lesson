@@ -1,3 +1,5 @@
+import { Button } from "./common/Button";
+
 export function Hero() {
   return (
     <section className="my-36 flex justify-around gap-10">
@@ -12,7 +14,7 @@ export function Hero() {
           excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a
           id nisi.
         </p>
-        <button className="bg-accent text-white">get started</button>
+        <Button>get started</Button>
       </div>
       <div>
         <img
