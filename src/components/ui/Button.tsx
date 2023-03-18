@@ -6,6 +6,7 @@ type ButtonProps = {
   className?: string;
   href?: string;
   variant?: "primary" | "secondary" | "outline" | "danger" | "warning" | "link";
+  size?: "sm" | "md" | "lg";
   anchorProps?: AnchorHTMLAttributes<HTMLAnchorElement>;
   buttonProps?: ButtonHTMLAttributes<HTMLButtonElement>;
 };
@@ -13,6 +14,7 @@ type ButtonProps = {
 export function Button({
   className = "",
   variant = "primary",
+  size = "md",
   children,
   href,
   anchorProps,
@@ -21,7 +23,9 @@ export function Button({
   if (href && variant === "link") {
     return (
       <Link
-        className={`${className} ${getVariantClass(variant)}`}
+        className={`${className} ${getVariantClass(variant)} ${getButtonSize(
+          size
+        )}`}
         href={href}
         {...anchorProps}
       >
@@ -32,7 +36,9 @@ export function Button({
 
   return (
     <button
-      className={`${className} ${getVariantClass(variant)}`}
+      className={`${className} ${getVariantClass(variant)} ${getButtonSize(
+        size
+      )}`}
       {...buttonProps}
     >
       {children}
@@ -56,5 +62,17 @@ function getVariantClass(variant?: string) {
     case "primary":
     default:
       return "uppercase w-fit rounded-md px-4 py-2 bg-neutral text-white hover:bg-[#222222]";
+  }
+}
+
+function getButtonSize(size?: string) {
+  switch (size) {
+    case "sm":
+      return "text-sm";
+    case "lg":
+      return "text-lg";
+    case "md":
+    default:
+      return "text-base";
   }
 }

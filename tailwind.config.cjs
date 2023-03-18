@@ -14,6 +14,10 @@ const config = {
         warning: "",
         error: "",
       },
+      fontFamily: {
+        heading: ["IBM Plex Serif", "serif"],
+        // heading: "var(--font-heading)",
+      },
     },
     plugins: [require("@tailwindcss/typography")],
   },

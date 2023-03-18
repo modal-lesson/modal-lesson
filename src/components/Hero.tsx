@@ -1,13 +1,15 @@
-import { Button } from "./common/Button";
+import { Button } from "./ui/Button";
 
 export function Hero() {
   return (
     <section className="my-36 flex justify-around gap-10">
-      <div className="relative w-96">
-        <div className="absolute right-auto bottom-auto left-[-40px] top-[-42px] -z-10 h-56 w-56 bg-gradient-to-tr from-lime-500 via-cyan-600 to-red-600 blur-[120px]"></div>
-        <h1 className="mb-10 text-5xl font-bold">
+      <div className="relative w-[450px]">
+        {/* <div className="absolute right-auto bottom-auto left-[-40px] top-[-42px] -z-10 h-56 w-56 bg-gradient-to-tr from-lime-500 via-cyan-600 to-red-600 blur-[120px]"></div> */}
+        <h1 className="font-heading mb-10 text-6xl font-bold">
           Welcome to{" "}
-          <span className="text-5xl font-bold text-primary">Modal Lesson!</span>
+          <span className="text-6xl font-heading font-bold text-primary">
+            Modal Lesson!
+          </span>
         </h1>
         <p className="mb-10 text-xl">
           Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda

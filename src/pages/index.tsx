@@ -1,7 +1,7 @@
 import { type NextPage } from "next";
 import { signIn, useSession } from "next-auth/react";
 import Head from "next/head";
-import { Button } from "~/components/common/Button";
+import { Button } from "~/components/ui/Button";
 import { Feature } from "~/components/Feature";
 import { Hero } from "~/components/Hero";
 import { Nav } from "~/components/Nav";

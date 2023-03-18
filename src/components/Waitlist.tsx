@@ -14,7 +14,7 @@ export function Waitlist() {
           className="input input-bordered input-primary w-full mb-5"
         />
         <button className="btn btn-primary w-full text-white">Sign up</button>
-        <div className="z-10 absolute right-auto left-[331px] bottom-[-33px] h-32 w-32 bg-gradient-to-tr from-lime-500 via-cyan-600 to-red-600 blur-[120px]"></div>
+        {/* <div className="z-10 absolute right-auto left-[331px] bottom-[-33px] h-32 w-32 bg-gradient-to-tr from-lime-500 via-cyan-600 to-red-600 blur-[120px]"></div> */}
       </div>
     </section>
   );
