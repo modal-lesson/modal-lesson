@@ -2,10 +2,10 @@ import { FolderIcon, GlobeIcon, NewspaperIcon, PlanbookIcon } from "./SvgIcons";
 
 export function Feature() {
   return (
-    <section className="bg-base-300 rounded-xl p-10 my-20">
+    <section className="rounded-xl p-10 my-20">
       <div className="flex flex-col items-center mb-16">
-        <span className="text-primary font-bold mb-5">Plan faster!</span>
-        <h3 className="text-4xl font-bold mb-8">
+        <span className="text-secondary font-bold mb-5">Plan faster!</span>
+        <h3 className="font-heading text-4xl font-black mb-8">
           Everything you need to plan fast.
         </h3>
         <p className="text-center text-lg mb-10 w-[800px]">

@@ -1,107 +1,173 @@
-import { signOut, useSession } from "next-auth/react";
-import Link from "next/link";
-import { Login } from "./Login";
+import {
+  createStyles,
+  Header,
+  Group,
+  Button,
+  Divider,
+  Box,
+  Burger,
+  Drawer,
+  ScrollArea,
+  rem,
+  type CSSObject,
+} from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
+import { SwitchToggle } from "./SwitchToggle";
+
+const useStyles = createStyles((theme) => ({
+  link: {
+    display: "flex",
+    alignItems: "center",
+    height: "100%",
+    paddingLeft: theme.spacing.md,
+    paddingRight: theme.spacing.md,
+    textDecoration: "none",
+    color: theme.colorScheme === "dark" ? theme.white : theme.black,
+    fontWeight: 500,
+    fontSize: theme.fontSizes.sm,
+
+    [theme.fn.smallerThan("sm")]: {
+      height: rem(42),
+      display: "flex",
+      alignItems: "center",
+      width: "100%",
+    },
+
+    ...(theme.fn.hover({
+      backgroundColor:
+        theme.colorScheme === "dark"
+          ? theme.colors.dark[6]
+          : theme.colors.gray[0],
+    }) as CSSObject),
+  },
+
+  subLink: {
+    width: "100%",
+    padding: `${theme.spacing.xs} ${theme.spacing.md}`,
+    borderRadius: theme.radius.md,
+
+    ...(theme.fn.hover({
+      backgroundColor:
+        theme.colorScheme === "dark"
+          ? theme.colors.dark[7]
+          : theme.colors.gray[0],
+    }) as CSSObject),
+
+    "&:active": theme.activeStyles,
+  },
+
+  dropdownFooter: {
+    backgroundColor:
+      theme.colorScheme === "dark"
+        ? theme.colors.dark[7]
+        : theme.colors.gray[0],
+    margin: `calc(${theme.spacing.md} * -1)`,
+    marginTop: theme.spacing.sm,
+    padding: `${theme.spacing.md} calc(${theme.spacing.md} * 2)`,
+    paddingBottom: theme.spacing.xl,
+    borderTop: `${rem(1)} solid ${
+      theme.colorScheme === "dark" ? theme.colors.dark[5] : theme.colors.gray[1]
+    }`,
+  },
+
+  hiddenMobile: {
+    [theme.fn.smallerThan("sm")]: {
+      display: "none",
+    },
+  },
+
+  hiddenDesktop: {
+    [theme.fn.largerThan("sm")]: {
+      display: "none",
+    },
+  },
+}));
 
 export function Navbar() {
-  const { data: session } = useSession();
+  const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
+    useDisclosure(false);
+  const { classes, theme } = useStyles();
 
   return (
-    <div className="navbar bg-transparent">
-      <div className="navbar-start">
-        <div className="dropdown">
-          <label tabIndex={0} className="btn-ghost btn lg:hidden">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h8m-8 6h16"
-              />
-            </svg>
-          </label>
-          <ul
-            tabIndex={0}
-            className="dropdown-content menu rounded-box menu-compact mt-3 w-52 bg-base-100 p-2 shadow"
+    <Box pb={120}>
+      <Header height={60} px="md">
+        <Group position="apart" sx={{ height: "100%" }}>
+          Logo
+          <Group
+            sx={{ height: "100%" }}
+            spacing={0}
+            className={classes.hiddenMobile}
           >
-            <li>
-              <Link href="/pricing">Pricing</Link>
-            </li>
-
-            <li>
-              <Link href="/contact">Contact</Link>
-            </li>
-          </ul>
-        </div>
-        <Link href="/" className="btn-ghost btn text-xl normal-case">
-          MODAL LESSON
-        </Link>
-      </div>
-      <div className="navbar-center hidden lg:flex">
-        {session
-          ? SIGNED_IN_NAV.map((item) => (
-              <ul key={item.label} className="menu menu-horizontal px-1">
-                <li>
-                  <Link href={item.href}>{item.label}</Link>
-                </li>
-              </ul>
-            ))
-          : NOT_SIGNED_IN_NAV.map((item) => (
-              <ul key={item.label} className="menu menu-horizontal px-1">
-                <li>
-                  <Link href={item.href}>{item.label}</Link>
-                </li>
-              </ul>
+            {NAV_LINKS.map((link) => (
+              <a key={link.title} href="#" className={classes.link}>
+                {link.title}
+              </a>
             ))}
-      </div>
+          </Group>
+          <SwitchToggle />
+          <Group className={classes.hiddenMobile}>
+            <Button variant="default">Log in</Button>
+            <Button className="!bg-primary">Sign up</Button>
+          </Group>
+          <Burger
+            opened={drawerOpened}
+            onClick={toggleDrawer}
+            className={classes.hiddenDesktop}
+          />
+        </Group>
+      </Header>
 
-      <div className="navbar-end">
-        {session ? (
-          <button
-            className="btn"
-            onClick={() => void signOut({ callbackUrl: "/" })}
-          >
-            Sign out
-          </button>
-        ) : (
-          <Login />
-        )}
-      </div>
-    </div>
+      <Drawer
+        opened={drawerOpened}
+        onClose={closeDrawer}
+        size="100%"
+        padding="md"
+        title="Navigation"
+        className={classes.hiddenDesktop}
+        zIndex={1000000}
+      >
+        <ScrollArea h={`calc(100vh - ${rem(60)})`} mx="-md">
+          <Divider
+            my="sm"
+            color={theme.colorScheme === "dark" ? "dark.5" : "gray.1"}
+          />
+
+          {NAV_LINKS.map((link) => (
+            <a key={link.title} href={link.href} className={classes.link}>
+              {link.title}
+            </a>
+          ))}
+
+          <Divider
+            my="sm"
+            color={theme.colorScheme === "dark" ? "dark.5" : "gray.1"}
+          />
+
+          <Group position="center" grow pb="xl" px="md">
+            <Button variant="default">Log in</Button>
+            <Button className="!bg-primary">Sign up</Button>
+          </Group>
+        </ScrollArea>
+      </Drawer>
+    </Box>
   );
 }
 
-const NOT_SIGNED_IN_NAV = [
+const NAV_LINKS = [
   {
-    href: "/pricing",
-    label: "Pricing",
+    title: "Home",
+    href: "#",
   },
   {
-    href: "/contact",
-    label: "Contact",
-  },
-];
-
-const SIGNED_IN_NAV = [
-  {
-    href: "/dashboard",
-    label: "Dashboard",
+    title: "Features",
+    href: "#",
   },
   {
-    href: "/planbook",
-    label: "Planbook",
+    title: "Pricing",
+    href: "#",
   },
   {
-    href: "/my-lessons",
-    label: "My Lessons",
-  },
-  {
-    href: "/settings",
-    label: "Settings",
+    title: "FAQ",
+    href: "#",
   },
 ];

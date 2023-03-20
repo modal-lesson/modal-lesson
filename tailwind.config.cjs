@@ -2,26 +2,25 @@
 const config = {
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
-  },
-  daisyui: {
-    themes: [
-      {
-        mytheme: {
-          primary: "#0891b2",
-          secondary: "#3F3F46",
-          accent: "#f59e0b",
-          neutral: "#27272a",
-          "base-100": "#18181b",
-          info: "#60a5fa",
-          success: "#22c55e",
-          warning: "#facc15",
-          error: "#e11d48",
-        },
+    extend: {
+      colors: {
+        primary: "#344E41",
+        secondary: "#A3B18A",
+        accent: "#FFB347", // Another consideration #FFD700
+        neutral: "#333333",
+        "base-100": "#DAD7CD",
+        info: "",
+        success: "",
+        warning: "",
+        error: "",
       },
-    ],
+      fontFamily: {
+        heading: ["IBM Plex Serif", "serif"],
+        // heading: "var(--font-heading)",
+      },
+    },
+    plugins: [require("@tailwindcss/typography")],
   },
-  plugins: [require("daisyui"), require("@tailwindcss/typography")],
 };
 
 module.exports = config;

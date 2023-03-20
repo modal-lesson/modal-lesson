@@ -1,14 +1,16 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500;600;700;900&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  /* body {
-    background-image: linear-gradient(
-      to right bottom,
-      rgb(24, 24, 27),
-      rgb(39, 39, 42),
-      rgb(22, 78, 99)
-    );
-  } */
+/* @layer base {
+  body {
+    background: #dad7cd;
+  }
+} */
+
+input:checked + .mantine-1thtv9i {
+  background: #344e41 !important;
+  border-color: #dad7cd !important;
 }
