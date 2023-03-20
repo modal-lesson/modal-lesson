@@ -5,7 +5,6 @@ import { api } from "~/utils/api";
 import { type Url } from "next/dist/shared/lib/router/router";
 import { useEffect } from "react";
 import { PriceCard } from "~/components/PriceCard";
-import { Tabs } from "~/components/Tabs";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const stripePromise = loadStripe(env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
@@ -66,7 +65,6 @@ export default function Page() {
       <h1 className="text-4xl text-center font-bold my-10">
         Choose your right plan
       </h1>
-      <Tabs />
       <PriceCard />
       <button onClick={() => handleCheckout(premiumPlan?.id as string)}>
         Premium Plan

@@ -1,9 +1,8 @@
 import { type NextPage } from "next";
 import Head from "next/head";
 import { Feature } from "~/components/Feature";
-import { Hero } from "~/components/NewHero";
+import { Hero } from "~/components/Hero";
 import { Waitlist } from "~/components/Waitlist";
-import { Window } from "~/components/Window";
 
 const Home: NextPage = () => {
   return (
@@ -34,7 +33,6 @@ const Home: NextPage = () => {
         <Hero />
         <Feature />
         <Waitlist />
-        <Window />
       </main>
     </>
   );
