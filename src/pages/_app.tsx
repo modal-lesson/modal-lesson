@@ -33,6 +33,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
       >
         <MantineProvider
           withGlobalStyles
+          withNormalizeCSS
           emotionCache={emotionCache()}
           theme={{ colorScheme }}
         >
