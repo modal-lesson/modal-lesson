@@ -1,9 +1,10 @@
+import { Button } from "@mantine/core";
 import { type NextPage } from "next";
 import { signIn, useSession } from "next-auth/react";
 import Head from "next/head";
-import { Button } from "~/components/ui/Button";
+// import { Button } from "~/components/ui/Button";
 import { Feature } from "~/components/Feature";
-import { Hero } from "~/components/Hero";
+import { Hero } from "~/components/NewHero";
 import { Nav } from "~/components/Nav";
 import { Waitlist } from "~/components/Waitlist";
 import { Window } from "~/components/Window";
@@ -36,6 +37,8 @@ const Home: NextPage = () => {
         />
       </Head>
       <main className="flex-grow">
+        {/* <Hero />
+         */}
         <Hero />
         <Feature />
         <Waitlist />

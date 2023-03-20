@@ -7,7 +7,9 @@ import { api } from "~/utils/api";
 import "~/styles/globals.css";
 import { Layout } from "~/layout/Layout";
 import { Footer } from "~/components/Footer";
-import { Nav } from "~/components/Nav";
+import { Navbar } from "~/components/Navbar";
+import { MantineProvider } from "@mantine/core";
+import { emotionCache } from "~/emotionCache";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -15,11 +17,19 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <SessionProvider session={session}>
-      <Layout>
-        <Nav />
-        <Component {...pageProps} />
-        <Footer />
-      </Layout>
+      <MantineProvider
+        withGlobalStyles
+        emotionCache={emotionCache()}
+        theme={{
+          colorScheme: "dark",
+        }}
+      >
+        <Layout>
+          <Navbar />
+          <Component {...pageProps} />
+          <Footer />
+        </Layout>
+      </MantineProvider>
     </SessionProvider>
   );
 };

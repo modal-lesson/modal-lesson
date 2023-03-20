@@ -6,7 +6,7 @@ import { Button } from "./ui/Button";
 
 export function Nav() {
   return (
-    <NavigationMenu.Root className="flex justify-between p-4">
+    <NavigationMenu.Root className="flex justify-between p-6">
       <Link className="font-bold" href="/">
         MODAL LESSON
       </Link>

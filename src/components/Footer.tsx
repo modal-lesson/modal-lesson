@@ -1,6 +1,6 @@
 export function Footer() {
   return (
-    <footer className="footer p-10 bg-base-100">
+    <footer className="footer p-10">
       <div>
         <svg
           width="50"
