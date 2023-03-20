@@ -19,7 +19,10 @@ const config = {
         // heading: "var(--font-heading)",
       },
     },
-    plugins: [require("@tailwindcss/typography")],
+    plugins: [
+      require("@tailwindcss/typography"),
+      require("@tailwindcss/forms"),
+    ],
   },
 };
 

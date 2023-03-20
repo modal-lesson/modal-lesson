@@ -9,3 +9,8 @@
     background: #dad7cd;
   }
 } */
+
+input:checked + .mantine-1thtv9i {
+  background: #344e41 !important;
+  border-color: #dad7cd !important;
+}

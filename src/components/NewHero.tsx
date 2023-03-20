@@ -6,12 +6,9 @@ import {
   Button,
   Group,
   Text,
-  List,
-  ThemeIcon,
   rem,
 } from "@mantine/core";
-import { IconCheck } from "@tabler/icons-react";
-import image from "./image.svg";
+import { SwitchToggle } from "./SwitchToggle";
 
 const useStyles = createStyles((theme) => ({
   inner: {
@@ -78,12 +75,12 @@ export function Hero() {
             <Title className={`${classes.title} !font-heading`}>
               A{" "}
               <span className={`${classes.highlight} !bg-primary`}>modern</span>{" "}
-              React <br /> components library
+              way <br /> to build your lesson plans!
             </Title>
             <Text color="dimmed" mt="md">
-              Build fully functional accessible web applications faster than
-              ever – Mantine includes more than 120 customizable components and
-              hooks to cover you in any situation
+              Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
+              excepturi exercitationem quasi. In deleniti eaque aut repudiandae
+              et a id nisi.
             </Text>
 
             <Group mt={30}>
@@ -95,7 +92,7 @@ export function Hero() {
                 size="md"
                 className={`${classes.control} bg-neutral`}
               >
-                Source code
+                Placeholder
               </Button>
             </Group>
           </div>

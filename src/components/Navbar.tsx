@@ -12,6 +12,7 @@ import {
   type CSSObject,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
+import { SwitchToggle } from "./SwitchToggle";
 
 const useStyles = createStyles((theme) => ({
   link: {
@@ -103,6 +104,7 @@ export function Navbar() {
               </a>
             ))}
           </Group>
+          <SwitchToggle />
           <Group className={classes.hiddenMobile}>
             <Button variant="default">Log in</Button>
             <Button className="!bg-primary">Sign up</Button>
