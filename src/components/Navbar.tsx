@@ -12,6 +12,7 @@ import {
   type CSSObject,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
+import { signOut, useSession } from "next-auth/react";
 import { SwitchToggle } from "./SwitchToggle";
 
 const useStyles = createStyles((theme) => ({
@@ -84,9 +85,14 @@ const useStyles = createStyles((theme) => ({
 }));
 
 export function Navbar() {
+  const { data: session } = useSession();
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
   const { classes, theme } = useStyles();
+
+  const handleSignOut = async () => {
+    await signOut({ callbackUrl: "/" });
+  };
 
   return (
     <Box pb={120}>
@@ -106,8 +112,15 @@ export function Navbar() {
           </Group>
           <SwitchToggle />
           <Group className={classes.hiddenMobile}>
-            <Button variant="default">Log in</Button>
-            <Button className="!bg-primary">Sign up</Button>
+            <Button
+              component="a"
+              href={session ? "/" : "/login"}
+              variant="default"
+              onClick={session ? handleSignOut : undefined}
+            >
+              {session ? "Log out" : "Log in"}
+            </Button>
+            {session ? "" : <Button className="!bg-primary">Sign up</Button>}
           </Group>
           <Burger
             opened={drawerOpened}
@@ -144,8 +157,15 @@ export function Navbar() {
           />
 
           <Group position="center" grow pb="xl" px="md">
-            <Button variant="default">Log in</Button>
-            <Button className="!bg-primary">Sign up</Button>
+            <Button
+              component="a"
+              href={session ? "/" : "/login"}
+              variant="default"
+              onClick={session ? handleSignOut : undefined}
+            >
+              {session ? "Log out" : "Log in"}
+            </Button>
+            {session ? "" : <Button className="!bg-primary">Sign up</Button>}
           </Group>
         </ScrollArea>
       </Drawer>
