@@ -120,7 +120,13 @@ export function Navbar() {
             >
               {session ? "Log out" : "Log in"}
             </Button>
-            {session ? "" : <Button className="!bg-primary">Sign up</Button>}
+            {session ? (
+              ""
+            ) : (
+              <Button className="!bg-primary hover:!bg-primary-hover">
+                Sign up
+              </Button>
+            )}
           </Group>
           <Burger
             opened={drawerOpened}
@@ -165,7 +171,13 @@ export function Navbar() {
             >
               {session ? "Log out" : "Log in"}
             </Button>
-            {session ? "" : <Button className="!bg-primary">Sign up</Button>}
+            {session ? (
+              ""
+            ) : (
+              <Button className="!bg-primary hover:!bg-primary-hover">
+                Sign up
+              </Button>
+            )}
           </Group>
         </ScrollArea>
       </Drawer>

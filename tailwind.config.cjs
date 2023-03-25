@@ -5,6 +5,7 @@ const config = {
     extend: {
       colors: {
         primary: "#344E41",
+
         secondary: "#A3B18A",
         accent: "#FFB347", // Another consideration #FFD700
         neutral: "#333333",
@@ -13,6 +14,7 @@ const config = {
         success: "",
         warning: "",
         error: "",
+        "primary-hover": "#253830",
       },
       fontFamily: {
         heading: ["IBM Plex Serif", "serif"],

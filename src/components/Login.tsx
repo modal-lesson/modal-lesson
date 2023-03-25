@@ -1,5 +1,5 @@
 import { signIn } from "next-auth/react";
-import { Paper, Button, rem, Title, Flex } from "@mantine/core";
+import { Paper, Button, rem, Title, Text, Flex } from "@mantine/core";
 import { IconBrandGoogle } from "@tabler/icons-react";
 
 export function Login() {
@@ -12,11 +12,19 @@ export function Login() {
   }
 
   return (
-    <Paper display="flex" shadow="xs" p="md" withBorder>
-      <Flex justify="center" align="center" direction="column">
-        <Title order={1}>Welcome back to Modal Lesson!</Title>
+    <Paper className="max-w-xl mx-6 sm:mx-auto" shadow="xs" p="md" withBorder>
+      <Flex
+        className="gap-5"
+        justify="center"
+        align="center"
+        direction="column"
+      >
+        <Title className="text-center" order={2}>
+          Welcome back to Modal Lesson!
+        </Title>
+        <Text>Sign in to get started.</Text>
         <Button
-          className="!bg-primary"
+          className="!bg-primary hover:!bg-primary-hover"
           component="a"
           rel="noopener noreferrer"
           leftIcon={<IconBrandGoogle size={rem(18)} />}

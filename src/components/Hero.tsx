@@ -83,7 +83,10 @@ export function Hero() {
             </Text>
 
             <Group mt={30}>
-              <Button size="md" className={`${classes.control} !bg-primary`}>
+              <Button
+                size="md"
+                className={`${classes.control} !bg-primary hover:!bg-primary-hover`}
+              >
                 Get started
               </Button>
               <Button
