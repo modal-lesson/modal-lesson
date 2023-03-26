@@ -1,22 +1,30 @@
+import { Paper, Text, Title } from "@mantine/core";
 import { FolderIcon, GlobeIcon, NewspaperIcon, PlanbookIcon } from "./SvgIcons";
 
 export function Feature() {
   return (
-    <section className="rounded-xl p-10 my-20">
+    <Paper shadow="xs" className="rounded-xl p-10 mx-6 my-20" withBorder>
       <div className="flex flex-col items-center mb-16">
-        <span className="text-secondary font-bold mb-5">Plan faster!</span>
-        <h3 className="font-heading text-4xl font-black mb-8">
+        <Text fz="sm" className="!text-secondary font-bold mb-5">
+          Plan faster!
+        </Text>
+        <Title
+          order={2}
+          className="font-heading !text-4xl font-black !mb-8 text-center"
+        >
           Everything you need to plan fast.
-        </h3>
-        <p className="text-center text-lg mb-10 w-[800px]">
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Recusandae
-          repellendus itaque unde optio delectus? Aliquam odio similique
-          asperiores pariatur dolores quas exercitationem dolor quos, eius
-          minima et, est, necessitatibus architecto.
-        </p>
+        </Title>
+        <Text className="max-w-[800px]" lineClamp={3}>
+          <p className="text-center text-lg mb-10 break-words">
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Recusandae
+            repellendus itaque unde optio delectus? Aliquam odio similique
+            asperiores pariatur dolores quas exercitationem dolor quos, eius
+            minima et, est, necessitatibus architecto.
+          </p>
+        </Text>
       </div>
 
-      <div className="grid grid-cols-2 justify-items-center">
+      <div className="grid grid-cols-1 md:grid-cols-2 justify-items-start md:justify-items-center">
         {FEATURE_SECTION_POST.map((feature) => (
           <div key={feature.title} className="flex gap-2">
             <span>{feature.icon}</span>
@@ -31,7 +39,7 @@ export function Feature() {
           </div>
         ))}
       </div>
-    </section>
+    </Paper>
   );
 }
 
