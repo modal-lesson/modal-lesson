@@ -1,25 +1,22 @@
-import { Input } from "./ui/Input";
+import { Paper, Input, Button, Title } from "@mantine/core";
 
 export function Waitlist() {
   return (
-    <section className="relative flex justify-between mb-10 p-10 bg-base-300 rounded-xl my-0 mx-auto max-w-3xl">
+    <Paper
+      className="relative flex justify-between mb-10 p-10 bg-base-300 rounded-xl my-0 mx-3"
+      withBorder
+    >
       <div>
-        <h2 className="text-2xl font-bold mb-5 w-[400px]">
+        <Title order={3} className="text-2xl font-bold !mb-5 max-w-[400px]">
           Be the first to know when Modal Lesson is available! Join our
           waitlist.
-        </h2>
+        </Title>
       </div>
-      <div>
-        <Input
-          // inputSize="xs"
-          name="blah"
-          type="text"
-          placeholder="Email"
-          className="input input-bordered input-primary w-full mb-5"
-        />
-        <button className="btn btn-primary w-full text-white">Sign up</button>
+      <div className="flex">
+        <Input className="!max-w-xl" placeholder="Your email" />
+        <Button className="!bg-primary hover:!bg-primary-hover">Sign up</Button>
         {/* <div className="z-10 absolute right-auto left-[331px] bottom-[-33px] h-32 w-32 bg-gradient-to-tr from-lime-500 via-cyan-600 to-red-600 blur-[120px]"></div> */}
       </div>
-    </section>
+    </Paper>
   );
 }

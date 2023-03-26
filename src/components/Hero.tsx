@@ -8,6 +8,7 @@ import {
   Text,
   rem,
 } from "@mantine/core";
+import { useSession } from "next-auth/react";
 
 const useStyles = createStyles((theme) => ({
   inner: {
@@ -66,6 +67,8 @@ const useStyles = createStyles((theme) => ({
 
 export function Hero() {
   const { classes } = useStyles();
+  const { data: session } = useSession();
+
   return (
     <div>
       <Container>
@@ -84,6 +87,8 @@ export function Hero() {
 
             <Group mt={30}>
               <Button
+                component="a"
+                href={session ? "/home" : "/login"}
                 size="md"
                 className={`${classes.control} !bg-primary hover:!bg-primary-hover`}
               >

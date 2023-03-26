@@ -188,7 +188,7 @@ export function Navbar() {
 const NAV_LINKS = [
   {
     title: "Home",
-    href: "#",
+    href: "/",
   },
   {
     title: "Features",
