@@ -106,6 +106,7 @@ export function Hero() {
           <Image
             src="https://ui.mantine.dev/_next/static/media/image.9a65bd94.svg"
             className={classes.image}
+            alt="Mantine hero image"
           />
         </div>
       </Container>
