@@ -20,7 +20,7 @@ jobs:
         run: npm install -g pnpm
 
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm i --fix-lockfile
 
       - name: Type check with TypeScript
         run: pnpm run type-check
