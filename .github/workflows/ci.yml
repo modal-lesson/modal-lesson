@@ -11,14 +11,14 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      DATABASE_URL: "${{ env.DATABASE_URL }}"
-      BASE_URL: "${{ env.BASE_URL }}"
-      GOOGLE_CLIENT_ID: "${{ env.GOOGLE_CLIENT_ID }}"
-      GOOGLE_CLIENT_SECRET: "${{ env.GOOGLE_CLIENT_SECRET }}"
-      NEXTAUTH_SECRET: "${{ env.NEXTAUTH_SECRET }}"
-      NEXTAUTH_URL: "${{ env.NEXTAUTH_URL }}"
-      NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: "${{ env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY }}"
-      STRIPE_SECRET_KEY: "${{ env.STRIPE_SECRET_KEY }}"
+      DATABASE_URL: "${{ vars.DATABASE_URL }}"
+      BASE_URL: "${{ vars.BASE_URL }}"
+      GOOGLE_CLIENT_ID: "${{ vars.GOOGLE_CLIENT_ID }}"
+      GOOGLE_CLIENT_SECRET: "${{ vars.GOOGLE_CLIENT_SECRET }}"
+      NEXTAUTH_SECRET: "${{ vars.NEXTAUTH_SECRET }}"
+      NEXTAUTH_URL: "${{ vars.NEXTAUTH_URL }}"
+      NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: "${{ vars.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY }}"
+      STRIPE_SECRET_KEY: "${{ vars.STRIPE_SECRET_KEY }}"
 
     steps:
       - uses: actions/checkout@v2
