@@ -7,11 +7,24 @@ import TextAlign from "@tiptap/extension-text-align";
 import Superscript from "@tiptap/extension-superscript";
 import SubScript from "@tiptap/extension-subscript";
 import { Button, TextInput } from "@mantine/core";
+import { type api } from "~/utils/api";
+import { type SubmitHandler, useForm } from "react-hook-form";
+
+type EditorProps = {
+  postMutation: ReturnType<typeof api.post.create.useMutation>;
+};
+
+type FormValues = {
+  title: string;
+  content: string;
+};
 
 const content =
   '<h2 style="text-align: center;">Welcome to Mantine rich text editor</h2><p><code>RichTextEditor</code> component focuses on usability and is designed to be as simple as possible to bring a familiar editing experience to regular users. <code>RichTextEditor</code> is based on <a href="https://tiptap.dev/" rel="noopener noreferrer" target="_blank">Tiptap.dev</a> and supports all of its features:</p><ul><li>General text formatting: <strong>bold</strong>, <em>italic</em>, <u>underline</u>, <s>strike-through</s> </li><li>Headings (h1-h6)</li><li>Sub and super scripts (<sup>&lt;sup /&gt;</sup> and <sub>&lt;sub /&gt;</sub> tags)</li><li>Ordered and bullet lists</li><li>Text align&nbsp;</li><li>And all <a href="https://tiptap.dev/extensions" target="_blank" rel="noopener noreferrer">other extensions</a></li></ul>';
 
-export function Editor() {
+export function Editor({ postMutation }: EditorProps) {
+  const { register, handleSubmit } = useForm<FormValues>();
+
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -27,13 +40,24 @@ export function Editor() {
 
   const html = editor?.getHTML();
 
-  function handleSubmit() {
-    console.log(html);
+  const handlePost: SubmitHandler<FormValues> = (data) => {
+    const { title } = data;
+    postMutation.mutate({ title, content: html ?? "" });
+  };
+
+  if (postMutation.isError) {
+    return <div>Something went wrong..</div>;
   }
 
   return (
-    <div className="max-w-4xl mx-auto my-0">
+    <form
+      // eslint-disable-next-line @typescript-eslint/no-misused-promises
+      onSubmit={handleSubmit(handlePost)}
+      className="max-w-4xl mx-auto my-0"
+    >
       <TextInput
+        {...register("title")}
+        // name="title"
         className="mb-5"
         label="Title"
         styles={{ label: { fontSize: "1.3rem", marginBottom: "0.3rem" } }}
@@ -84,12 +108,13 @@ export function Editor() {
       </RichTextEditor>
       <div className="flex justify-end w-full">
         <Button
-          onClick={handleSubmit}
+          disabled={postMutation.isLoading}
           className="!bg-primary hover:!bg-primary-hover mt-5"
+          type="submit"
         >
-          Post
+          {postMutation.isLoading ? "loading" : "Post"}
         </Button>
       </div>
-    </div>
+    </form>
   );
 }

@@ -11,12 +11,15 @@ export const postRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ ctx, input }) => {
-      //TODO connect user to author
-      // author: { connect: { id: ctx.user.id } }
       const post = await ctx.prisma.post.create({
         data: {
           title: input.title,
           content: input.content,
+          author: {
+            connect: {
+              id: ctx.session.user.id,
+            },
+          },
         },
       });
 

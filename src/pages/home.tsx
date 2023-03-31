@@ -1,9 +1,8 @@
 import { Editor } from "~/components/Editor";
+import { api } from "~/utils/api";
 
 export default function Page() {
-  return (
-    <div>
-      <Editor />
-    </div>
-  );
+  const postMutation = api.post.create.useMutation();
+
+  return <Editor postMutation={postMutation} />;
 }
