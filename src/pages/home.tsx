@@ -1,10 +1,9 @@
-import Tiptap from "~/components/Tiptap";
+import { Editor } from "~/components/Editor";
 
 export default function Page() {
   return (
     <div>
-      <h1>Home</h1>
-      <Tiptap />
+      <Editor />
     </div>
   );
 }
