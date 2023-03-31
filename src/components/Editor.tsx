@@ -51,20 +51,21 @@ export function Editor({ postMutation }: EditorProps) {
 
   return (
     <form
+      // This is disabled because the void keyword doesn't submit the form.
       // eslint-disable-next-line @typescript-eslint/no-misused-promises
       onSubmit={handleSubmit(handlePost)}
       className="max-w-4xl mx-auto my-0"
     >
       <TextInput
         {...register("title")}
-        // name="title"
+        name="title"
         className="mb-5"
         label="Title"
         styles={{ label: { fontSize: "1.3rem", marginBottom: "0.3rem" } }}
       />
 
       <RichTextEditor editor={editor}>
-        <RichTextEditor.Toolbar sticky stickyOffset={60}>
+        <RichTextEditor.Toolbar>
           <RichTextEditor.ControlsGroup>
             <RichTextEditor.Bold />
             <RichTextEditor.Italic />
@@ -108,11 +109,12 @@ export function Editor({ postMutation }: EditorProps) {
       </RichTextEditor>
       <div className="flex justify-end w-full">
         <Button
-          disabled={postMutation.isLoading}
+          // disabled={postMutation.isLoading}
           className="!bg-primary hover:!bg-primary-hover mt-5"
           type="submit"
+          loading={postMutation.isLoading}
         >
-          {postMutation.isLoading ? "loading" : "Post"}
+          {postMutation.isLoading ? "" : "Post"}
         </Button>
       </div>
     </form>

@@ -15,6 +15,7 @@ import {
 } from "@mantine/core";
 import { emotionCache } from "~/emotionCache";
 import { useState } from "react";
+import { Notifications } from "@mantine/notifications";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -37,6 +38,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
           emotionCache={emotionCache()}
           theme={{ colorScheme }}
         >
+          <Notifications position="bottom-center" className="!bg-primary" />
           <Layout>
             <Navbar />
             <Component {...pageProps} />
