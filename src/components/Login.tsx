@@ -12,7 +12,7 @@ export function Login() {
   }
 
   return (
-    <Paper className="max-w-xl mx-6 sm:mx-auto" shadow="xs" p="md" withBorder>
+    <Paper className="max-w-xl" shadow="xs" p="xl" withBorder>
       <Flex
         className="gap-5"
         justify="center"

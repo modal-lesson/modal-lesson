@@ -5,7 +5,7 @@ import { SessionProvider } from "next-auth/react";
 import { api } from "~/utils/api";
 
 import "~/styles/globals.css";
-import { Layout } from "~/layout/Layout";
+import { LandingPageLayout } from "~/layout/LandingPageLayout";
 import { Footer } from "~/components/Footer";
 import { Navbar } from "~/components/Navbar";
 import {
@@ -16,15 +16,28 @@ import {
 import { emotionCache } from "~/emotionCache";
 import { useState } from "react";
 import { Notifications } from "@mantine/notifications";
+import { useRouter } from "next/router";
+import { MainLayout } from "~/layout/MainLayout";
+
+const NONAUTHENTICATED_ROUTES = ["/login"];
+const AUTHENTICATED_ROUTES = ["/home"];
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
   pageProps: { session, ...pageProps },
 }) => {
+  const router = useRouter();
   const [colorScheme, setColorScheme] = useState<ColorScheme>("dark");
 
   const toggleColorScheme = (value?: ColorScheme) =>
     setColorScheme(value || colorScheme === "dark" ? "light" : "dark");
+
+  const showLandingPageHeaderAndFooter = NONAUTHENTICATED_ROUTES.includes(
+    router.pathname
+  );
+  const showSidebarInMainLayout = AUTHENTICATED_ROUTES.includes(
+    router.pathname
+  );
 
   return (
     <SessionProvider session={session}>
@@ -39,11 +52,17 @@ const MyApp: AppType<{ session: Session | null }> = ({
           theme={{ colorScheme }}
         >
           <Notifications position="bottom-center" className="!bg-primary" />
-          <Layout>
-            <Navbar />
-            <Component {...pageProps} />
-            <Footer />
-          </Layout>
+          {showSidebarInMainLayout ? (
+            <MainLayout>
+              <Component {...pageProps} />
+            </MainLayout>
+          ) : (
+            <LandingPageLayout>
+              {!showLandingPageHeaderAndFooter && <Navbar />}
+              <Component {...pageProps} />
+              {!showLandingPageHeaderAndFooter && <Footer />}
+            </LandingPageLayout>
+          )}
         </MantineProvider>
       </ColorSchemeProvider>
     </SessionProvider>
