@@ -16,7 +16,7 @@ import {
   IconLock,
 } from "@tabler/icons-react";
 import { UserButton } from "./UserButton";
-import { LinksGroup } from "./NavbarlinksGroup";
+import { LinksGroup } from "./NavbarLinksGroup";
 // import { Logo } from "./Logo";
 
 const mockdata = [
