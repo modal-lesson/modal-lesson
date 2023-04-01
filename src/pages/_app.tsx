@@ -16,15 +16,23 @@ import {
 import { emotionCache } from "~/emotionCache";
 import { useState } from "react";
 import { Notifications } from "@mantine/notifications";
+import { useRouter } from "next/router";
+
+const ROUTE_PATH = {
+  login: "/login",
+};
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
   pageProps: { session, ...pageProps },
 }) => {
+  const router = useRouter();
   const [colorScheme, setColorScheme] = useState<ColorScheme>("dark");
 
   const toggleColorScheme = (value?: ColorScheme) =>
     setColorScheme(value || colorScheme === "dark" ? "light" : "dark");
+
+  const loginPage = router.pathname === ROUTE_PATH.login ? true : false;
 
   return (
     <SessionProvider session={session}>
@@ -40,9 +48,9 @@ const MyApp: AppType<{ session: Session | null }> = ({
         >
           <Notifications position="bottom-center" className="!bg-primary" />
           <Layout>
-            <Navbar />
+            {!loginPage && <Navbar />}
             <Component {...pageProps} />
-            <Footer />
+            {!loginPage && <Footer />}
           </Layout>
         </MantineProvider>
       </ColorSchemeProvider>
