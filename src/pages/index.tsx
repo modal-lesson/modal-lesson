@@ -1,10 +1,27 @@
 import { type NextPage } from "next";
+import { useSession } from "next-auth/react";
 import Head from "next/head";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import { Feature } from "~/components/Feature";
 import { Hero } from "~/components/Hero";
 import { Waitlist } from "~/components/Waitlist";
+import { api } from "~/utils/api";
 
 const Home: NextPage = () => {
+  const { data: session } = useSession();
+
+  const router = useRouter();
+  const userQuery = api.user.me.useQuery(undefined, {
+    enabled: session?.user !== undefined,
+  });
+
+  useEffect(() => {
+    if (userQuery.data) {
+      void router.push("/home");
+    }
+  }, [router, userQuery.data]);
+
   return (
     <>
       <Head>
