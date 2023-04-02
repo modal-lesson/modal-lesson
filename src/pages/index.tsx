@@ -2,7 +2,7 @@ import { type NextPage } from "next";
 import { useSession } from "next-auth/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Feature } from "~/components/Feature";
 import { Hero } from "~/components/Hero";
 import { Waitlist } from "~/components/Waitlist";
