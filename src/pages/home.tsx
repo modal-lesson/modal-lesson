@@ -1,6 +1,7 @@
 import { Editor } from "~/components/Editor";
 import { api } from "~/utils/api";
 import { notifications } from "@mantine/notifications";
+import { Sidebar } from "~/components/Sidebar";
 
 export default function Page() {
   const postMutation = api.post.create.useMutation({
@@ -13,5 +14,10 @@ export default function Page() {
     },
   });
 
-  return <Editor postMutation={postMutation} />;
+  return (
+    <>
+      <Sidebar />
+      <Editor postMutation={postMutation} />
+    </>
+  );
 }

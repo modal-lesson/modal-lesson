@@ -5,7 +5,7 @@ import { SessionProvider } from "next-auth/react";
 import { api } from "~/utils/api";
 
 import "~/styles/globals.css";
-import { Layout } from "~/layout/Layout";
+import { LandingPageLayout } from "~/layout/LandingPageLayout";
 import { Footer } from "~/components/Footer";
 import { Navbar } from "~/components/Navbar";
 import {
@@ -17,10 +17,10 @@ import { emotionCache } from "~/emotionCache";
 import { useState } from "react";
 import { Notifications } from "@mantine/notifications";
 import { useRouter } from "next/router";
+import { MainLayout } from "~/layout/MainLayout";
 
-const ROUTE_PATH = {
-  login: "/login",
-};
+const NONAUTHENTICATED_ROUTES = ["/login"];
+const AUTHENTICATED_ROUTES = ["/home"];
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -32,7 +32,12 @@ const MyApp: AppType<{ session: Session | null }> = ({
   const toggleColorScheme = (value?: ColorScheme) =>
     setColorScheme(value || colorScheme === "dark" ? "light" : "dark");
 
-  const loginPage = router.pathname === ROUTE_PATH.login ? true : false;
+  const showLandingPageHeaderAndFooter = NONAUTHENTICATED_ROUTES.includes(
+    router.pathname
+  );
+  const showSidebarInMainLayout = AUTHENTICATED_ROUTES.includes(
+    router.pathname
+  );
 
   return (
     <SessionProvider session={session}>
@@ -47,11 +52,17 @@ const MyApp: AppType<{ session: Session | null }> = ({
           theme={{ colorScheme }}
         >
           <Notifications position="bottom-center" className="!bg-primary" />
-          <Layout>
-            {!loginPage && <Navbar />}
-            <Component {...pageProps} />
-            {!loginPage && <Footer />}
-          </Layout>
+          {showSidebarInMainLayout ? (
+            <MainLayout>
+              <Component {...pageProps} />
+            </MainLayout>
+          ) : (
+            <LandingPageLayout>
+              {!showLandingPageHeaderAndFooter && <Navbar />}
+              <Component {...pageProps} />
+              {!showLandingPageHeaderAndFooter && <Footer />}
+            </LandingPageLayout>
+          )}
         </MantineProvider>
       </ColorSchemeProvider>
     </SessionProvider>

@@ -54,7 +54,7 @@ export function Editor({ postMutation }: EditorProps) {
       // This is disabled because the void keyword doesn't submit the form.
       // eslint-disable-next-line @typescript-eslint/no-misused-promises
       onSubmit={handleSubmit(handlePost)}
-      className="max-w-4xl mx-auto my-0"
+      className="max-w-4xl mx-auto my-20"
     >
       <TextInput
         {...register("title")}
