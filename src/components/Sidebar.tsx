@@ -1,11 +1,4 @@
-import {
-  Navbar,
-  Group,
-  Code,
-  ScrollArea,
-  createStyles,
-  rem,
-} from "@mantine/core";
+import { Navbar, Group, ScrollArea, createStyles, rem } from "@mantine/core";
 import {
   IconNotes,
   IconCalendarStats,

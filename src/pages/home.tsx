@@ -1,8 +1,6 @@
 import { Editor } from "~/components/Editor";
 import { api } from "~/utils/api";
 import { notifications } from "@mantine/notifications";
-import { Sidebar } from "~/components/Sidebar";
-import { useSession } from "next-auth/react";
 
 export default function Page() {
   const postMutation = api.post.create.useMutation({
@@ -17,7 +15,6 @@ export default function Page() {
 
   return (
     <>
-      {/* <Sidebar session={session} /> */}
       <Editor postMutation={postMutation} />
     </>
   );

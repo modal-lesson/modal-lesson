@@ -64,7 +64,7 @@ const useStyles = createStyles((theme) => ({
 }));
 
 interface LinksGroupProps {
-  icon: React.FC<any>;
+  icon: React.ComponentType<{ size: string }>;
   label: string;
   initiallyOpened?: boolean;
   links?: { label: string; link: string }[];
