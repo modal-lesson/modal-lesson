@@ -1,11 +1,4 @@
-import {
-  Navbar,
-  Group,
-  Code,
-  ScrollArea,
-  createStyles,
-  rem,
-} from "@mantine/core";
+import { Navbar, Group, ScrollArea, createStyles, rem } from "@mantine/core";
 import {
   IconNotes,
   IconCalendarStats,
@@ -17,12 +10,13 @@ import {
 } from "@tabler/icons-react";
 import { UserButton } from "./UserButton";
 import { LinksGroup } from "./NavbarLinksGroup";
-// import { Logo } from "./Logo";
+import { type Session } from "next-auth";
+import { SwitchToggle } from "./SwitchToggle";
 
 const mockdata = [
-  { label: "Dashboard", icon: IconGauge },
+  { label: "Home", icon: IconGauge },
   {
-    label: "Market news",
+    label: "Classes",
     icon: IconNotes,
     initiallyOpened: true,
     links: [
@@ -33,7 +27,7 @@ const mockdata = [
     ],
   },
   {
-    label: "Releases",
+    label: "Calendar",
     icon: IconCalendarStats,
     links: [
       { label: "Upcoming releases", link: "/" },
@@ -92,7 +86,7 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export function Sidebar() {
+export function Sidebar({ session }: { session: Session | null }) {
   const { classes } = useStyles();
   const links = mockdata.map((item) => (
     <LinksGroup {...item} key={item.label} />
@@ -102,9 +96,8 @@ export function Sidebar() {
     <Navbar height={800} width={{ sm: 300 }} p="md" className={classes.navbar}>
       <Navbar.Section className={classes.header}>
         <Group position="apart">
-          {/* <Logo width={rem(120)} /> */}
           Logo
-          <Code sx={{ fontWeight: 700 }}>v3.1.2</Code>
+          <SwitchToggle />
         </Group>
       </Navbar.Section>
 
@@ -114,9 +107,9 @@ export function Sidebar() {
 
       <Navbar.Section className={classes.footer}>
         <UserButton
-          image="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80"
-          name="Ann Nullpointer"
-          email="anullpointer@yahoo.com"
+          image={session?.user.image as string}
+          name={session?.user.name as string}
+          email={session?.user.email as string}
         />
       </Navbar.Section>
     </Navbar>

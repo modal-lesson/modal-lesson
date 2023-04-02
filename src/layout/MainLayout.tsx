@@ -1,3 +1,12 @@
+import { useSession } from "next-auth/react";
+import { Sidebar } from "~/components/Sidebar";
+
 export function MainLayout({ children }: { children: React.ReactNode }) {
-  return <div className="flex">{children}</div>;
+  const { data: session } = useSession();
+  return (
+    <div className="flex">
+      <Sidebar session={session} />
+      {children}
+    </div>
+  );
 }

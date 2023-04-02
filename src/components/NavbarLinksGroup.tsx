@@ -64,7 +64,7 @@ const useStyles = createStyles((theme) => ({
 }));
 
 interface LinksGroupProps {
-  icon: React.FC<any>;
+  icon: React.ComponentType<{ size: string }>;
   label: string;
   initiallyOpened?: boolean;
   links?: { label: string; link: string }[];
@@ -100,7 +100,11 @@ export function LinksGroup({
       >
         <Group position="apart" spacing={0}>
           <Box sx={{ display: "flex", alignItems: "center" }}>
-            <ThemeIcon variant="light" size={30}>
+            <ThemeIcon
+              className="!bg-primary !text-secondary"
+              variant="light"
+              size={30}
+            >
               <Icon size="1.1rem" />
             </ThemeIcon>
             <Box ml="md">{label}</Box>
