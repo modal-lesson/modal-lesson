@@ -4,11 +4,12 @@
 @tailwind components;
 @tailwind utilities;
 
-/* @layer base {
-  body {
-    background: #dad7cd;
+@layer base {
+  /* This will show the `style-type: disc` for our editor */
+  ul, ol {
+    list-style: revert;
   }
-} */
+}
 
 input:checked + .mantine-1thtv9i {
   background: #344e41 !important;

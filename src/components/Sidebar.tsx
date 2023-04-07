@@ -93,7 +93,7 @@ export function Sidebar({ session }: { session: Session | null }) {
   ));
 
   return (
-    <Navbar height={800} width={{ sm: 300 }} p="md" className={classes.navbar}>
+    <Navbar height={800} width={{ sm: 300 }} p="md" className={`${classes.navbar} min-h-screen`}>
       <Navbar.Section className={classes.header}>
         <Group position="apart">
           Logo
