@@ -6,6 +6,7 @@ import {
   IconChevronRight,
 } from "@tabler/icons-react";
 import { type Session } from "next-auth";
+import { signOut } from "next-auth/react";
 
 type MenuNavProps = {
   icon?: React.ReactNode;
@@ -50,6 +51,12 @@ export function MenuNav({ icon }: MenuNavProps) {
           }
         >
           Search
+        </Menu.Item>
+        <Menu.Item
+          icon={<IconMessageCircle size={14} />}
+          onClick={() => void signOut({ callbackUrl: "/" })}
+        >
+          Sign out
         </Menu.Item>
       </Menu.Dropdown>
     </Menu>
