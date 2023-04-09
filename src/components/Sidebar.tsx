@@ -12,6 +12,7 @@ import { UserButton } from "./UserButton";
 import { LinksGroup } from "./NavbarLinksGroup";
 import { type Session } from "next-auth";
 import { SwitchToggle } from "./SwitchToggle";
+import { MenuNav } from "./Menu";
 
 const mockdata = [
   { label: "Home", icon: IconGauge },
@@ -83,6 +84,12 @@ const useStyles = createStyles((theme) => ({
     borderTop: `${rem(1)} solid ${
       theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[3]
     }`,
+    "&:hover": {
+      backgroundColor:
+        theme.colorScheme === "dark"
+          ? theme.colors.dark[8]
+          : theme.colors.gray[0],
+    },
   },
 }));
 
@@ -93,7 +100,12 @@ export function Sidebar({ session }: { session: Session | null }) {
   ));
 
   return (
-    <Navbar height={800} width={{ sm: 300 }} p="md" className={`${classes.navbar} min-h-screen`}>
+    <Navbar
+      height={800}
+      width={{ sm: 300 }}
+      p="md"
+      className={`${classes.navbar} min-h-screen !pb-0`}
+    >
       <Navbar.Section className={classes.header}>
         <Group position="apart">
           Logo
@@ -105,12 +117,13 @@ export function Sidebar({ session }: { session: Session | null }) {
         <div className={classes.linksInner}>{links}</div>
       </Navbar.Section>
 
-      <Navbar.Section className={classes.footer}>
+      <Navbar.Section className={`flex items-center ${classes.footer}`}>
         <UserButton
           image={session?.user.image as string}
           name={session?.user.name as string}
           email={session?.user.email as string}
         />
+        <MenuNav />
       </Navbar.Section>
     </Navbar>
   );

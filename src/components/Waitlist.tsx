@@ -3,7 +3,7 @@ import { Paper, Input, Button, Title } from "@mantine/core";
 export function Waitlist() {
   return (
     <Paper
-      className="relative flex justify-between mb-10 p-10 bg-base-300 rounded-xl my-0 mx-3"
+      className="relative flex justify-between mb-10 p-10 bg-base-300 rounded-xl my-0 mx-3 !border-2"
       withBorder
     >
       <div>

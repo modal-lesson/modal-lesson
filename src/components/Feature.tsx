@@ -3,7 +3,11 @@ import { FolderIcon, GlobeIcon, NewspaperIcon, PlanbookIcon } from "./SvgIcons";
 
 export function Feature() {
   return (
-    <Paper shadow="xs" className="rounded-xl p-10 mx-3 my-20" withBorder>
+    <Paper
+      shadow="xs"
+      className="rounded-xl p-10 mx-3 my-20 !border-2"
+      withBorder
+    >
       <div className="flex flex-col items-center mb-16">
         <Text fz="sm" className="!text-secondary font-bold mb-5">
           Plan faster!
