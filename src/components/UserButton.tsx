@@ -27,18 +27,14 @@ interface UserButtonProps extends UnstyledButtonProps {
   image: string;
   name: string;
   email: string;
+  icon?: React.ReactNode;
 }
 
 export function UserButton({ image, name, email, ...others }: UserButtonProps) {
   const { classes } = useStyles();
 
   return (
-    <UnstyledButton
-      component="a"
-      href="/profile"
-      className={classes.user}
-      {...others}
-    >
+    <UnstyledButton className={classes.user} {...others}>
       <Group>
         <Avatar src={image} radius="xl" />
 
