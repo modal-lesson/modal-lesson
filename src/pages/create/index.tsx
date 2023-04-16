@@ -1,6 +1,7 @@
 import { Select, TextInput, Button } from "@mantine/core";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { api } from "~/utils/api";
 
 const options = [
   { value: "kindergarten", label: "Kindergarten" },
@@ -27,7 +28,7 @@ type FormValues = {
 };
 
 export default function Page() {
-  const [loading, setLoading] = useState(false);
+  const [lesson, setLesson] = useState<string[] | undefined>();
   const { register, handleSubmit, control } = useForm<FormValues>({
     defaultValues: {
       title: "",
@@ -38,29 +39,22 @@ export default function Page() {
     },
   });
 
-  const onSubmit = async (data: FormValues) => {
-    setLoading(true);
-    try {
-      // TODO: Look into adding a router for this to use useQuery instead.
-      // Change URL once it is out of localhost
-      const response = await fetch("http://localhost:8000/generate-lesson", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+  const mutationQuery = api.ai.create.useMutation({
+    onSuccess: (data) => {
+      if (data) {
+        setLesson(data);
+      }
+    },
+  });
 
-      const body = (await response.json()) as { attributes: string[] };
-
-      console.log("body", body.attributes);
-      setLoading(false);
-    } catch (error) {
-      console.log("Something went wrong: ", { catch: error });
-    } finally {
-      setLoading(false);
-    }
+  const onSubmit = (data: FormValues) => {
+    mutationQuery.mutate({ ...data });
   };
+
+  if (lesson) {
+    //TODO: Generate this as a function instead.
+    return <div>{lesson}</div>;
+  }
 
   return (
     <div>
@@ -107,11 +101,13 @@ export default function Page() {
           required
         />
         <Button
-          loading={loading}
+          loading={mutationQuery.isLoading}
           className="!bg-primary hover:!bg-primary-hover"
           type="submit"
         >
-          {loading ? "Generating Lesson Plan.." : "Generate Lesson Plan"}
+          {mutationQuery.isLoading
+            ? "Generating Lesson Plan.."
+            : "Generate Lesson Plan"}
         </Button>
       </form>
     </div>
