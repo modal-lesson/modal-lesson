@@ -6,7 +6,8 @@
 
 @layer base {
   /* This will show the `style-type: disc` for our editor */
-  ul, ol {
+  ul,
+  ol {
     list-style: revert;
   }
 }
@@ -14,4 +15,17 @@
 input:checked + .mantine-1thtv9i {
   background: #344e41 !important;
   border-color: #dad7cd !important;
+}
+
+.mantine-Input-input {
+  color: #dad7cd !important;
+}
+
+.mantine-Input-input:focus {
+  border-color: #344e41 !important;
+}
+
+.mantine-Select-item:hover {
+  background: #344e41 !important;
+  color: #dad7cd !important;
 }

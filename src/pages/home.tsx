@@ -1,6 +1,7 @@
 import { Editor } from "~/components/Editor";
 import { api } from "~/utils/api";
 import { notifications } from "@mantine/notifications";
+import { Button } from "@mantine/core";
 
 export default function Page() {
   const postMutation = api.post.create.useMutation({
@@ -14,8 +15,16 @@ export default function Page() {
   });
 
   return (
-    <>
+    <div>
+      <h1>Welcome blah</h1>
+      <Button
+        component="a"
+        href="/create"
+        className="!bg-primary hover:!bg-primary-hover"
+      >
+        Create a Lesson Plan
+      </Button>
       <Editor postMutation={postMutation} />
-    </>
+    </div>
   );
 }
