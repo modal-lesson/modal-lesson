@@ -1,6 +1,6 @@
-import { Select, TextInput } from "@mantine/core";
+import { Select, TextInput, Button } from "@mantine/core";
+import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { Button } from "~/components/ui/Button";
 
 const options = [
   { value: "kindergarten", label: "Kindergarten" },
@@ -27,6 +27,7 @@ type FormValues = {
 };
 
 export default function Page() {
+  const [loading, setLoading] = useState(false);
   const { register, handleSubmit, control } = useForm<FormValues>({
     defaultValues: {
       title: "",
@@ -37,8 +38,28 @@ export default function Page() {
     },
   });
 
-  const onSubmit = (data: FormValues) => {
-    console.log({ data });
+  const onSubmit = async (data: FormValues) => {
+    setLoading(true);
+    try {
+      // TODO: Look into adding a router for this to use useQuery instead.
+      // Change URL once it is out of localhost
+      const response = await fetch("http://localhost:8000/generate-lesson", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      const body = (await response.json()) as { attributes: string[] };
+
+      console.log("body", body.attributes);
+      setLoading(false);
+    } catch (error) {
+      console.log("Something went wrong: ", { catch: error });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -85,8 +106,12 @@ export default function Page() {
           label="Length of Lesson Plan"
           required
         />
-        <Button className="!bg-primary hover:!bg-primary-hover">
-          Generate
+        <Button
+          loading={loading}
+          className="!bg-primary hover:!bg-primary-hover"
+          type="submit"
+        >
+          {loading ? "Generating Lesson Plan.." : "Generate Lesson Plan"}
         </Button>
       </form>
     </div>
