@@ -13,6 +13,7 @@ jobs:
     env:
       DATABASE_URL: "https://test.com"
       API_URL: "https://foobar.com/bar"
+      OPENAI_API_KEY: "foofaaboobaa"
       BASE_URL: "https://test.com"
       GOOGLE_CLIENT_ID: "foobar"
       GOOGLE_CLIENT_SECRET: "foobar"

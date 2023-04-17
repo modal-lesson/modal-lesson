@@ -17,12 +17,12 @@ export const aiRouter = createTRPCRouter({
     )
     .mutation(async ({ input }) => {
       try {
-        const response = await fetch(`${env.API_URL}/generate-lesson`, {
+        const response = await fetch(`${env.BASE_URL}/api/ai/generate`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(input),
+          body: JSON.stringify({ ...input }),
         });
 
         if (!response.ok) {
