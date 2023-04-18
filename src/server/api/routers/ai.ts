@@ -16,6 +16,7 @@ export const aiRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ input }) => {
+      let generatedPrompt = "";
       try {
         const response = await fetch(`${env.BASE_URL}/api/ai/generate`, {
           method: "POST",
@@ -31,6 +32,27 @@ export const aiRouter = createTRPCRouter({
             message: "Something went wrong",
           });
         }
+
+        const data = response.body;
+        if (!data) {
+          throw new TRPCError({
+            code: "INTERNAL_SERVER_ERROR",
+            message: "Something went wrong",
+          });
+        }
+
+        const reader = data.getReader();
+        const decoder = new TextDecoder();
+        let done = false;
+
+        while (!done) {
+          const { value, done: doneReading } = await reader.read();
+          done = doneReading;
+          const chunkValue = decoder.decode(value);
+          generatedPrompt += chunkValue;
+        }
+
+        console.log({ generatedPrompt });
 
         const body = (await response.json()) as { attributes: string[] };
 

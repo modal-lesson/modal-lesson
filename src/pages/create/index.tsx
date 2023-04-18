@@ -1,6 +1,7 @@
 import { Select, TextInput, Button } from "@mantine/core";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { env } from "~/env.mjs";
 import { api } from "~/utils/api";
 
 const options = [
@@ -28,6 +29,7 @@ type FormValues = {
 };
 
 export default function Page() {
+  const [generatedPrompt, setGeneratedPrompt] = useState<string>("");
   const [lesson, setLesson] = useState<string[] | undefined>();
   const { register, handleSubmit, control } = useForm<FormValues>({
     defaultValues: {
@@ -47,13 +49,55 @@ export default function Page() {
     },
   });
 
-  const onSubmit = (data: FormValues) => {
-    mutationQuery.mutate({ ...data });
+  const onSubmit = async (data: FormValues) => {
+    // mutationQuery.mutate({ ...data });
+    try {
+      const response = await fetch(`http://localhost:3000/api/ai/generate`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ ...data }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Something went wrong");
+      }
+
+      const dataBody = response.body;
+      if (!dataBody) {
+        return;
+      }
+
+      const reader = dataBody.getReader();
+      const decoder = new TextDecoder();
+      let done = false;
+
+      while (!done) {
+        const { value, done: doneReading } = await reader.read();
+        if (value === undefined) {
+          done = true;
+          break;
+        }
+        done = doneReading;
+        const chunkValue = decoder.decode(value);
+        setGeneratedPrompt((prev) => prev + chunkValue);
+        console.group("Response Body: ");
+        console.log({ value });
+        console.log({ doneReading });
+        console.log({ chunkValue });
+        console.groupEnd();
+      }
+
+      console.log({ generatedPrompt });
+    } catch (error) {
+      console.log("Something went wrong: ", { catch: error });
+    }
   };
 
-  if (lesson) {
+  if (generatedPrompt) {
     //TODO: Generate this as a function instead.
-    return <div>{lesson}</div>;
+    return <div>{generatedPrompt}</div>;
   }
 
   return (
