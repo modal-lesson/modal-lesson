@@ -2,7 +2,6 @@ import { Select, TextInput, Button } from "@mantine/core";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { env } from "~/env.mjs";
-import { api } from "~/utils/api";
 
 const options = [
   { value: "kindergarten", label: "Kindergarten" },
@@ -30,7 +29,8 @@ type FormValues = {
 
 export default function Page() {
   const [generatedPrompt, setGeneratedPrompt] = useState<string>("");
-  const [lesson, setLesson] = useState<string[] | undefined>();
+  const [loading, setLoading] = useState(false);
+
   const { register, handleSubmit, control } = useForm<FormValues>({
     defaultValues: {
       title: "",
@@ -41,16 +41,8 @@ export default function Page() {
     },
   });
 
-  const mutationQuery = api.ai.create.useMutation({
-    onSuccess: (data) => {
-      if (data) {
-        setLesson(data);
-      }
-    },
-  });
-
   const onSubmit = async (data: FormValues) => {
-    // mutationQuery.mutate({ ...data });
+    setLoading(true);
     try {
       const response = await fetch(
         `${env.NEXT_PUBLIC_BASE_URL}/api/ai/generate`,
@@ -85,16 +77,12 @@ export default function Page() {
         done = doneReading;
         const chunkValue = decoder.decode(value);
         setGeneratedPrompt((prev) => prev + chunkValue);
-        console.group("Response Body: ");
-        console.log({ value });
-        console.log({ doneReading });
-        console.log({ chunkValue });
-        console.groupEnd();
       }
-
-      console.log({ generatedPrompt });
+      setLoading(false);
     } catch (error) {
       console.log("Something went wrong: ", { catch: error });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -148,13 +136,11 @@ export default function Page() {
           required
         />
         <Button
-          loading={mutationQuery.isLoading}
+          loading={loading}
           className="!bg-primary hover:!bg-primary-hover"
           type="submit"
         >
-          {mutationQuery.isLoading
-            ? "Generating Lesson Plan.."
-            : "Generate Lesson Plan"}
+          {loading ? "Generating Lesson Plan.." : "Generate Lesson Plan"}
         </Button>
       </form>
     </div>

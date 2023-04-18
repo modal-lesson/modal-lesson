@@ -33,8 +33,6 @@ export async function OpenAIStream(payload: OpenAIStreamPayload) {
     body: JSON.stringify(payload),
   });
 
-  //   console.log({ res });
-
   const stream = new ReadableStream({
     async start(controller) {
       // callback
@@ -50,7 +48,6 @@ export async function OpenAIStream(payload: OpenAIStreamPayload) {
             // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
             const json = JSON.parse(data);
             const text = json.choices[0].delta?.content || "";
-            console.log({ json, text });
             if (counter < 2 && (text.match(/\n/) || []).length) {
               // this is a prefix character (i.e., "\n\n"), do nothing
               return;
