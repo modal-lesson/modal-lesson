@@ -5,6 +5,7 @@ specifiers:
   '@emotion/server': ^11.10.0
   '@heroicons/react': ^2.0.16
   '@mantine/core': ^6.0.5
+  '@mantine/dates': ^6.0.9
   '@mantine/hooks': ^6.0.5
   '@mantine/next': ^6.0.5
   '@mantine/notifications': ^6.0.5
@@ -39,6 +40,7 @@ specifiers:
   '@typescript-eslint/eslint-plugin': ^5.53.0
   '@typescript-eslint/parser': ^5.53.0
   autoprefixer: ^10.4.7
+  dayjs: ^1.11.7
   eslint: ^8.34.0
   eslint-config-next: ^13.2.1
   eventsource-parser: ^1.0.0
@@ -62,6 +64,7 @@ dependencies:
   '@emotion/server': 11.10.0
   '@heroicons/react': 2.0.17_react@18.2.0
   '@mantine/core': 6.0.6_z6mkljgfz35cqw5xrleq7kjcbq
+  '@mantine/dates': 6.0.9_7cbxwq2i6ifycwljiccut564ni
   '@mantine/hooks': 6.0.6_react@18.2.0
   '@mantine/next': 6.0.6_wr2djpa44tnxon7d4oaxzkir4i
   '@mantine/notifications': 6.0.6_feqrfkte3oaz5jjghkdwfk53i4
@@ -86,6 +89,7 @@ dependencies:
   '@trpc/next': 10.19.1_ignh3qt62oolsnzmbc2jz5i2ae
   '@trpc/react-query': 10.19.1_ctnjxqnm464aolergljm3ebpq4
   '@trpc/server': 10.19.1
+  dayjs: 1.11.7
   eventsource-parser: 1.0.0
   next: 13.3.0_biqbaboplfbrettd7655fr4n2y
   next-auth: 4.21.1_yucv4tfv7v7nrkw2uguegj6e7e
@@ -417,6 +421,21 @@ packages:
       - '@types/react'
     dev: false
 
+  /@mantine/dates/6.0.9_7cbxwq2i6ifycwljiccut564ni:
+    resolution: {integrity: sha512-sV/2MByRxjfGCw1iJzoeZRPXuvnJ9Qk95TNSC3ieUrQjIhf/fme/oWiraeo2WRUtIK2MPr2cOCEgQdok1/X8tA==}
+    peerDependencies:
+      '@mantine/core': 6.0.9
+      '@mantine/hooks': 6.0.9
+      dayjs: '>=1.0.0'
+      react: '>=16.8.0'
+    dependencies:
+      '@mantine/core': 6.0.6_z6mkljgfz35cqw5xrleq7kjcbq
+      '@mantine/hooks': 6.0.6_react@18.2.0
+      '@mantine/utils': 6.0.9_react@18.2.0
+      dayjs: 1.11.7
+      react: 18.2.0
+    dev: false
+
   /@mantine/hooks/6.0.6_react@18.2.0:
     resolution: {integrity: sha512-yGqGIZVgvL33XL+4UbP/BcvH/R5SKJYfrNcKIQY+SZ4y3CP05Q/p0BpjcLUJowKbD+xHaqXnMxE8yGf9KWAZig==}
     peerDependencies:
@@ -509,6 +528,14 @@ packages:
 
   /@mantine/utils/6.0.6_react@18.2.0:
     resolution: {integrity: sha512-Pd+ZTJ3maXb1zihZzHpo00XLwcKEg+ZGLPFG5vg/YafLDDWIhgV6snTFVKsPb2cunVjOwzbKcvlmCHXBe97mTQ==}
+    peerDependencies:
+      react: '>=16.8.0'
+    dependencies:
+      react: 18.2.0
+    dev: false
+
+  /@mantine/utils/6.0.9_react@18.2.0:
+    resolution: {integrity: sha512-zEDZixO8dw2ZSNZiQ1g7S+Bq2q4E8ps6bvpyZsxpiXBdh3g2H0WOEdJdDpBTiTRPWotSlU1kaKN3tOplCRDQ2Q==}
     peerDependencies:
       react: '>=16.8.0'
     dependencies:
@@ -2051,6 +2078,10 @@ packages:
 
   /dash-get/1.0.2:
     resolution: {integrity: sha512-4FbVrHDwfOASx7uQVxeiCTo7ggSdYZbqs8lH+WU6ViypPlDbe9y6IP5VVUDQBv9DcnyaiPT5XT0UWHgJ64zLeQ==}
+    dev: false
+
+  /dayjs/1.11.7:
+    resolution: {integrity: sha512-+Yw9U6YO5TQohxLcIkrXBeY73WP3ejHWVvx8XCk3gxvQDCTEmS48ZrSZCKciI7Bhl/uCMyxYtE9UqRILmFphkQ==}
     dev: false
 
   /debug/3.2.7:

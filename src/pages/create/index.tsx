@@ -2,22 +2,7 @@ import { Select, TextInput, Button } from "@mantine/core";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { env } from "~/env.mjs";
-
-const options = [
-  { value: "kindergarten", label: "Kindergarten" },
-  { value: "first-grade", label: "First Grade" },
-  { value: "second-grade", label: "Second Grade" },
-  { value: "third-grade", label: "Third Grade" },
-  { value: "fourth-grade", label: "Fourth Grade" },
-  { value: "fifth-grade", label: "Fifth Grade" },
-  { value: "sixth-grade", label: "Sixth Grade" },
-  { value: "seventh-grade", label: "Seventh Grade" },
-  { value: "eighth-grade", label: "Eighth Grade" },
-  { value: "ninth-grade", label: "Ninth Grade" },
-  { value: "tenth-grade", label: "Tenth Grade" },
-  { value: "eleventh-grade", label: "Eleventh Grade" },
-  { value: "twelfth-grade", label: "Twelfth Grade" },
-];
+import { GRADE_OPTIONS } from "~/constants";
 
 type FormValues = {
   title: string;
@@ -122,7 +107,7 @@ export default function Page() {
               {...field}
               label="Grade Level"
               placeholder="Pick one"
-              data={options}
+              data={GRADE_OPTIONS}
               required
             />
           )}
