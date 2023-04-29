@@ -11,7 +11,7 @@ import { type api } from "~/utils/api";
 import { type SubmitHandler, useForm } from "react-hook-form";
 
 type EditorProps = {
-  postMutation: ReturnType<typeof api.post.create.useMutation>;
+  lessonPlanMutation: ReturnType<typeof api.lessonPlan.create.useMutation>;
 };
 
 type FormValues = {
@@ -22,7 +22,7 @@ type FormValues = {
 const content =
   '<h2 style="text-align: center;">Welcome to Mantine rich text editor</h2><p><code>RichTextEditor</code> component focuses on usability and is designed to be as simple as possible to bring a familiar editing experience to regular users. <code>RichTextEditor</code> is based on <a href="https://tiptap.dev/" rel="noopener noreferrer" target="_blank">Tiptap.dev</a> and supports all of its features:</p><ul><li>General text formatting: <strong>bold</strong>, <em>italic</em>, <u>underline</u>, <s>strike-through</s> </li><li>Headings (h1-h6)</li><li>Sub and super scripts (<sup>&lt;sup /&gt;</sup> and <sub>&lt;sub /&gt;</sub> tags)</li><li>Ordered and bullet lists</li><li>Text align&nbsp;</li><li>And all <a href="https://tiptap.dev/extensions" target="_blank" rel="noopener noreferrer">other extensions</a></li></ul>';
 
-export function Editor({ postMutation }: EditorProps) {
+export function Editor({ lessonPlanMutation }: EditorProps) {
   const { register, handleSubmit } = useForm<FormValues>();
 
   const editor = useEditor({
@@ -42,10 +42,10 @@ export function Editor({ postMutation }: EditorProps) {
 
   const handlePost: SubmitHandler<FormValues> = (data) => {
     const { title } = data;
-    postMutation.mutate({ title, content: html ?? "" });
+    lessonPlanMutation.mutate({ title, content: html ?? "" });
   };
 
-  if (postMutation.isError) {
+  if (lessonPlanMutation.isError) {
     return <div>Something went wrong..</div>;
   }
 
@@ -112,9 +112,9 @@ export function Editor({ postMutation }: EditorProps) {
           // disabled={postMutation.isLoading}
           className="!bg-primary hover:!bg-primary-hover mt-5"
           type="submit"
-          loading={postMutation.isLoading}
+          loading={lessonPlanMutation.isLoading}
         >
-          {postMutation.isLoading ? "" : "Post"}
+          {lessonPlanMutation.isLoading ? "" : "Post"}
         </Button>
       </div>
     </form>
