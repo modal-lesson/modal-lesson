@@ -2,7 +2,7 @@ import { createTRPCRouter } from "~/server/api/trpc";
 import { exampleRouter } from "~/server/api/routers/example";
 import { stripeRouter } from "./routers/stripe";
 import { productRouter } from "./routers/product";
-import { postRouter } from "./routers/post";
+import { lessonPlanRouter } from "./routers/lessonPlan";
 import { userRouter } from "./routers/user";
 import { aiRouter } from "./routers/ai";
 
@@ -17,7 +17,7 @@ export const appRouter = createTRPCRouter({
   stripe: stripeRouter,
   product: productRouter,
   ai: aiRouter,
-  post: postRouter,
+  lessonPlan: lessonPlanRouter,
 });
 
 // export type definition of API

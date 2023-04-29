@@ -2,7 +2,7 @@ import { z } from "zod";
 
 import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 
-export const postRouter = createTRPCRouter({
+export const lessonPlanRouter = createTRPCRouter({
   create: protectedProcedure
     .input(
       z.object({
@@ -11,11 +11,11 @@ export const postRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ ctx, input }) => {
-      const post = await ctx.prisma.post.create({
+      const post = await ctx.prisma.lessonPlan.create({
         data: {
           title: input.title,
           content: input.content,
-          author: {
+          user: {
             connect: {
               id: ctx.session.user.id,
             },

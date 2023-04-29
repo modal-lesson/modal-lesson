@@ -20,5 +20,12 @@ const config = {
     locales: ["en"],
     defaultLocale: "en",
   },
+  /**
+   * Disabling this because I want GH actions to do the TS check for us.
+   * And helps with build times w/ vercel
+   */
+  typescript: {
+    ignoreBuildErrors: true,
+  },
 };
 export default config;

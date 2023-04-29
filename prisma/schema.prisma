@@ -44,16 +44,17 @@ model Session {
 }
 
 model User {
-  id               String    @id @default(cuid())
+  id               String       @id @default(cuid())
   name             String?
-  email            String?   @unique
+  email            String?      @unique
   emailVerified    DateTime?
   image            String?
-  stripeActive     Boolean?  @default(false)
+  stripeActive     Boolean?     @default(false)
   stripeCustomerId String?
   accounts         Account[]
   sessions         Session[]
-  Post             Post[]
+  lessonPlans      LessonPlan[]
+  classes          Class[]
 }
 
 model VerificationToken {
@@ -64,14 +65,41 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-model Post {
+model LessonPlan {
   id        String   @id @default(cuid())
   title     String
   content   String?  @db.Text
-  authorId  String?
+  user      User?    @relation(fields: [userId], references: [id])
+  userId    String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  author    User?    @relation(fields: [authorId], references: [id])
+  Class     Class[]
 
-  @@index([authorId])
+  @@index([userId])
+}
+
+model Class {
+  id               String      @id @default(cuid())
+  name             String
+  gradeLevel       String?
+  numberOfStudents Int?
+  classStartDate   DateTime?
+  classEndDate     DateTime?
+  startTime        DateTime?
+  endTime          DateTime?
+  user             User?       @relation(fields: [userId], references: [id])
+  userId           String?
+  lessonPlan       LessonPlan? @relation(fields: [lessonPlanId], references: [id])
+  lessonPlanId     String?
+  day              Day?
+  createAt         DateTime    @default(now())
+  updatedAt        DateTime    @updatedAt
+
+  @@index([lessonPlanId])
+  @@index([userId])
+}
+
+enum Day {
+  A
+  B
 }

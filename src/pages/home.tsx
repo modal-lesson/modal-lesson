@@ -4,7 +4,7 @@ import { notifications } from "@mantine/notifications";
 import { Button } from "@mantine/core";
 
 export default function Page() {
-  const postMutation = api.post.create.useMutation({
+  const lessonPlanMutation = api.lessonPlan.create.useMutation({
     onSuccess: () => {
       notifications.show({
         title: "Success",
@@ -24,7 +24,7 @@ export default function Page() {
       >
         Create a Lesson Plan
       </Button>
-      <Editor postMutation={postMutation} />
+      <Editor lessonPlanMutation={lessonPlanMutation} />
     </div>
   );
 }
