@@ -20,7 +20,13 @@ import { useRouter } from "next/router";
 import { MainLayout } from "~/layout/MainLayout";
 
 const NONAUTHENTICATED_ROUTES = ["/login"];
-const AUTHENTICATED_ROUTES = ["/home", "/settings", "/profile", "/create"];
+const AUTHENTICATED_ROUTES = [
+  "/home",
+  "/settings",
+  "/profile",
+  "/create",
+  "/create/class",
+];
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
