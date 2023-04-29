@@ -88,7 +88,19 @@ export default function Page() {
 
   if (generatedPrompt) {
     //TODO: Generate this as a function instead.
-    return <div>{generatedPrompt}</div>;
+    const formattedPrompt = generatedPrompt.replace(/\n\n/g, "<br />");
+    return (
+      <>
+        <div dangerouslySetInnerHTML={{ __html: formattedPrompt }} />
+
+        {loading ? null : (
+          <div className="flex flex-col">
+            <Button>Save Lesson</Button>
+            <Button>Generate another lesson</Button>
+          </div>
+        )}
+      </>
+    );
   }
 
   return (
