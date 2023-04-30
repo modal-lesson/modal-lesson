@@ -8,6 +8,7 @@ export const lessonPlanRouter = createTRPCRouter({
       z.object({
         title: z.string(),
         content: z.string(),
+        classId: z.string(),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -18,6 +19,11 @@ export const lessonPlanRouter = createTRPCRouter({
           user: {
             connect: {
               id: ctx.session.user.id,
+            },
+          },
+          class: {
+            connect: {
+              id: input.classId,
             },
           },
         },

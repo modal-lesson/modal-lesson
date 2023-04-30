@@ -12,6 +12,24 @@ import { TRPCError } from "@trpc/server";
 dayjs.extend(customParseFormat);
 
 export const classRouter = createTRPCRouter({
+  find: protectedProcedure
+    .input(z.object({ classId: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const findClass = await ctx.prisma.class.findUnique({
+        where: {
+          id: input.classId,
+        },
+      });
+
+      if (!findClass) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Class not found",
+        });
+      }
+
+      return findClass;
+    }),
   get: publicProcedure.query(async ({ ctx }) => {
     //TODO: Pagination
     const getAll = await ctx.prisma.class.findMany({});

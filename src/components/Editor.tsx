@@ -12,6 +12,7 @@ import { type SubmitHandler, useForm } from "react-hook-form";
 
 type EditorProps = {
   lessonPlanMutation: ReturnType<typeof api.lessonPlan.create.useMutation>;
+  id?: string;
 };
 
 type FormValues = {
@@ -22,7 +23,7 @@ type FormValues = {
 const content =
   '<h2 style="text-align: center;">Welcome to Mantine rich text editor</h2><p><code>RichTextEditor</code> component focuses on usability and is designed to be as simple as possible to bring a familiar editing experience to regular users. <code>RichTextEditor</code> is based on <a href="https://tiptap.dev/" rel="noopener noreferrer" target="_blank">Tiptap.dev</a> and supports all of its features:</p><ul><li>General text formatting: <strong>bold</strong>, <em>italic</em>, <u>underline</u>, <s>strike-through</s> </li><li>Headings (h1-h6)</li><li>Sub and super scripts (<sup>&lt;sup /&gt;</sup> and <sub>&lt;sub /&gt;</sub> tags)</li><li>Ordered and bullet lists</li><li>Text align&nbsp;</li><li>And all <a href="https://tiptap.dev/extensions" target="_blank" rel="noopener noreferrer">other extensions</a></li></ul>';
 
-export function Editor({ lessonPlanMutation }: EditorProps) {
+export function Editor({ lessonPlanMutation, id }: EditorProps) {
   const { register, handleSubmit } = useForm<FormValues>();
 
   const editor = useEditor({
@@ -42,7 +43,11 @@ export function Editor({ lessonPlanMutation }: EditorProps) {
 
   const handlePost: SubmitHandler<FormValues> = (data) => {
     const { title } = data;
-    lessonPlanMutation.mutate({ title, content: html ?? "" });
+    lessonPlanMutation.mutate({
+      title,
+      content: html ?? "",
+      classId: id as string,
+    });
   };
 
   if (lessonPlanMutation.isError) {

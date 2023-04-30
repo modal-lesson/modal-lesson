@@ -166,8 +166,12 @@ export default function Page() {
             />
           )}
         />
-        <Button className="!bg-primary hover:!bg-primary-hover" type="submit">
-          Create Class
+        <Button
+          loading={classMutation.isLoading}
+          className="!bg-primary hover:!bg-primary-hover"
+          type="submit"
+        >
+          {classMutation.isLoading ? "Creating..." : "Create Class"}
         </Button>
       </form>
     </div>

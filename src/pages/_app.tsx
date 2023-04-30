@@ -25,8 +25,10 @@ const AUTHENTICATED_ROUTES = [
   "/settings",
   "/profile",
   "/create",
+  "/create/lesson",
   "/create/class",
   "/class/[id]",
+  "/create/lesson/[id]/new",
 ];
 
 const MyApp: AppType<{ session: Session | null }> = ({

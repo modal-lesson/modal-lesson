@@ -19,6 +19,9 @@ export const GRADE_OPTIONS = [
   { value: "Tenth Grade", label: "Tenth Grade" },
   { value: "Eleventh Grade", label: "Eleventh Grade" },
   { value: "Twelfth Grade", label: "Twelfth Grade" },
+  { value: "9th-12th Grade", label: "9th-12th Grade" },
+  { value: "6th-8th Grade", label: "6th-8th Grade" },
+  { value: "Other", label: "Other" },
 ];
 
 export const DAY_OPTIONS: DayType = [
