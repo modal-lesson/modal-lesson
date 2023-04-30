@@ -1,3 +1,10 @@
+import type { Day } from "@prisma/client";
+
+type DayType = {
+  value: Day;
+  label: Day;
+}[];
+
 export const GRADE_OPTIONS = [
   { value: "kindergarten", label: "Kindergarten" },
   { value: "first-grade", label: "First Grade" },
@@ -12,4 +19,15 @@ export const GRADE_OPTIONS = [
   { value: "tenth-grade", label: "Tenth Grade" },
   { value: "eleventh-grade", label: "Eleventh Grade" },
   { value: "twelfth-grade", label: "Twelfth Grade" },
+];
+
+export const DAY_OPTIONS: DayType = [
+  {
+    value: "A",
+    label: "A",
+  },
+  {
+    value: "B",
+    label: "B",
+  },
 ];

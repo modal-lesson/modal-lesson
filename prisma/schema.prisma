@@ -85,8 +85,8 @@ model Class {
   numberOfStudents Int?
   classStartDate   DateTime?
   classEndDate     DateTime?
-  startTime        DateTime?
-  endTime          DateTime?
+  startTime        DateTime?   @db.Time
+  endTime          DateTime?   @db.Time
   user             User?       @relation(fields: [userId], references: [id])
   userId           String?
   lessonPlan       LessonPlan? @relation(fields: [lessonPlanId], references: [id])
