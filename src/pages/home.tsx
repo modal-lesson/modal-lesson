@@ -4,6 +4,8 @@ import { notifications } from "@mantine/notifications";
 import { Button } from "@mantine/core";
 
 export default function Page() {
+  // const classQuery = api.class.get.useQuery();
+
   const lessonPlanMutation = api.lessonPlan.create.useMutation({
     onSuccess: () => {
       notifications.show({

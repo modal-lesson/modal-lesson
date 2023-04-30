@@ -4,37 +4,59 @@ import { Select } from "@mantine/core";
 import { DateInput, TimeInput } from "@mantine/dates";
 import { IconClock } from "@tabler/icons-react";
 import { type MutableRefObject, useRef } from "react";
-import { GRADE_OPTIONS } from "~/constants";
+import { GRADE_OPTIONS, DAY_OPTIONS } from "~/constants";
+import { api } from "~/utils/api";
+import { notifications } from "@mantine/notifications";
+import { useRouter } from "next/router";
 
 type ClassFormValues = {
-  className: string;
-  grade: string;
-  numberOfStudents: string;
-  classStartDate: string;
-  classEndDate: string;
-  classStartTime: string;
-  classEndTime: string;
+  name: string;
+  gradeLevel: string;
+  numberOfStudents: number;
+  classStartDate: Date;
+  classEndDate: Date;
+  startTime: string;
+  endTime: string;
+  day: "A" | "B";
 };
 
 export default function Page() {
   // Ref is here to use Browser input vs the render from the controller.
   const timeStartRef = useRef() as MutableRefObject<HTMLInputElement>;
   const timeEndRef = useRef() as MutableRefObject<HTMLInputElement>;
+  const router = useRouter();
 
-  const { register, control, handleSubmit } = useForm<ClassFormValues>({
+  const classMutation = api.class.create.useMutation({
+    onSuccess: async () => {
+      notifications.show({
+        title: "Success",
+        message: "Class created successfully",
+        color: "green",
+      });
+
+      await router.push("/home");
+    },
+  });
+
+  const { register, control, handleSubmit, reset } = useForm<ClassFormValues>({
     defaultValues: {
-      className: "",
-      grade: "",
-      numberOfStudents: "",
-      classStartDate: "",
-      classEndDate: "",
-      classStartTime: "",
-      classEndTime: "",
+      name: "",
+      gradeLevel: "",
+      numberOfStudents: undefined,
+      classStartDate: undefined,
+      classEndDate: undefined,
+      startTime: "",
+      endTime: "",
+      day: "A",
     },
   });
 
   const onSubmit = (data: ClassFormValues) => {
-    console.log(data);
+    classMutation.mutate({
+      ...data,
+      numberOfStudents: Number(data.numberOfStudents),
+    });
+    reset();
   };
 
   return (
@@ -43,13 +65,13 @@ export default function Page() {
       {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
       <form onSubmit={handleSubmit(onSubmit)}>
         <TextInput
-          {...register("className")}
+          {...register("name")}
           placeholder="Class Name"
           label="Class name"
           required
         />
         <Controller
-          name="grade"
+          name="gradeLevel"
           control={control}
           render={({ field }) => (
             <Select
@@ -97,7 +119,7 @@ export default function Page() {
           )}
         />
         <Controller
-          name="classStartTime"
+          name="startTime"
           control={control}
           render={({ field: { ...field } }) => (
             <TimeInput
@@ -115,12 +137,12 @@ export default function Page() {
           )}
         />
         <Controller
-          name="classEndTime"
+          name="endTime"
           control={control}
           render={({ field: { ...field } }) => (
             <TimeInput
               {...field}
-              label="Class start time (click icon to show browser picker)"
+              label="Class end time (click icon to show browser picker)"
               ref={timeEndRef}
               rightSection={
                 <ActionIcon onClick={() => timeEndRef.current?.showPicker()}>
@@ -129,6 +151,18 @@ export default function Page() {
               }
               maw={400}
               mx="auto"
+            />
+          )}
+        />
+        <Controller
+          name="day"
+          control={control}
+          render={({ field }) => (
+            <Select
+              {...field}
+              label="A or B day"
+              placeholder="Pick one"
+              data={DAY_OPTIONS}
             />
           )}
         />
