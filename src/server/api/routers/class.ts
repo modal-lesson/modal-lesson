@@ -7,6 +7,7 @@ import { z } from "zod";
 import { Day } from "@prisma/client";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
+import { TRPCError } from "@trpc/server";
 
 dayjs.extend(customParseFormat);
 
@@ -14,6 +15,13 @@ export const classRouter = createTRPCRouter({
   get: publicProcedure.query(async ({ ctx }) => {
     //TODO: Pagination
     const getAll = await ctx.prisma.class.findMany({});
+
+    if (!getAll) {
+      throw new TRPCError({
+        code: "NOT_FOUND",
+        message: "No classes found",
+      });
+    }
 
     return getAll;
   }),
