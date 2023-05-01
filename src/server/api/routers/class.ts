@@ -32,7 +32,13 @@ export const classRouter = createTRPCRouter({
     }),
   get: publicProcedure.query(async ({ ctx }) => {
     //TODO: Pagination
-    const getAll = await ctx.prisma.class.findMany({});
+    const getAll = await ctx.prisma.class.findMany({
+      where: {
+        user: {
+          id: ctx?.session?.user.id,
+        },
+      },
+    });
 
     if (!getAll) {
       throw new TRPCError({
