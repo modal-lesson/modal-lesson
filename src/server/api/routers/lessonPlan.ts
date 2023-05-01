@@ -3,6 +3,38 @@ import { z } from "zod";
 import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 
 export const lessonPlanRouter = createTRPCRouter({
+  find: protectedProcedure
+    .input(
+      z.object({
+        id: z.string().optional(),
+        lessonPlanId: z.array(z.string()).optional(),
+      })
+    )
+    .query(async ({ ctx, input }) => {
+      const userClass = await ctx.prisma.class.findUnique({
+        where: {
+          id: input.id,
+        },
+        select: {
+          id: true,
+          lessonPlans: true,
+        },
+      });
+
+      console.log({ userClass });
+
+      const lessonPlanIds = userClass?.lessonPlans.map((lessonPlan) => {
+        return lessonPlan.lessonPlanId;
+      });
+
+      const lessonPlans = await ctx.prisma.lessonPlan.findMany({
+        where: {
+          id: { in: lessonPlanIds },
+        },
+      });
+
+      return lessonPlans;
+    }),
   create: protectedProcedure
     .input(
       z.object({
@@ -21,9 +53,13 @@ export const lessonPlanRouter = createTRPCRouter({
               id: ctx.session.user.id,
             },
           },
-          class: {
-            connect: {
-              id: input.classId,
+          classes: {
+            create: {
+              class: {
+                connect: {
+                  id: input.classId,
+                },
+              },
             },
           },
         },
