@@ -66,37 +66,48 @@ model VerificationToken {
 }
 
 model LessonPlan {
-  id        String   @id @default(cuid())
+  id        String                 @id @default(cuid())
   title     String
-  content   String?  @db.Text
-  user      User?    @relation(fields: [userId], references: [id])
+  content   String?                @db.Text
+  user      User?                  @relation(fields: [userId], references: [id])
   userId    String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  class     Class[]
+  createdAt DateTime               @default(now())
+  updatedAt DateTime               @updatedAt
+  classes   ClassesOnLessonPlans[]
 
   @@index([userId])
 }
 
 model Class {
-  id               String      @id @default(cuid())
-  name             String      @unique
+  id               String                 @id @default(cuid())
+  name             String                 @unique
   gradeLevel       String?
   numberOfStudents Int?
   classStartDate   DateTime?
   classEndDate     DateTime?
-  startTime        DateTime?   @db.Time
-  endTime          DateTime?   @db.Time
-  user             User?       @relation(fields: [userId], references: [id])
+  startTime        DateTime?              @db.Time
+  endTime          DateTime?              @db.Time
+  user             User?                  @relation(fields: [userId], references: [id])
   userId           String?
-  lessonPlan       LessonPlan? @relation(fields: [lessonPlanId], references: [id])
-  lessonPlanId     String?
   day              Day?
-  createdAt        DateTime    @default(now())
-  updatedAt        DateTime    @updatedAt
+  createdAt        DateTime               @default(now())
+  updatedAt        DateTime               @updatedAt
+  lessonPlans      ClassesOnLessonPlans[]
 
-  @@index([lessonPlanId])
   @@index([userId])
+}
+
+model ClassesOnLessonPlans {
+  class        Class      @relation(fields: [classId], references: [id])
+  classId      String
+  lessonPlan   LessonPlan @relation(fields: [lessonPlanId], references: [id])
+  lessonPlanId String
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  @@id([classId, lessonPlanId])
+  @@index([classId, lessonPlanId])
+  @@index([lessonPlanId])
 }
 
 enum Day {
