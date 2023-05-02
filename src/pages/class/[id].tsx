@@ -1,5 +1,6 @@
 import { Button } from "@mantine/core";
 import { useRouter } from "next/router";
+import { LessonPlanTable } from "~/components/LessonPlanTable";
 import { api } from "~/utils/api";
 
 export default function Page() {
@@ -26,11 +27,7 @@ export default function Page() {
         Create a Lesson Plan
       </Button>
 
-      {lessonPlanQuery.data?.map((lesson) => (
-        <div key={lesson.id}>
-          <h2>Lesson Title: {lesson.title}</h2>
-        </div>
-      ))}
+      <LessonPlanTable lessons={lessonPlanQuery.data} />
     </div>
   );
 }
