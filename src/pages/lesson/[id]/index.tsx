@@ -1,6 +1,7 @@
 import { Anchor, Breadcrumbs } from "@mantine/core";
 import { useRouter } from "next/router";
 import { api } from "~/utils/api";
+import sanitizeHtml from "sanitize-html";
 
 export default function Page() {
   const router = useRouter();
@@ -19,6 +20,12 @@ export default function Page() {
     return <div>Loading...</div>;
   }
 
+  if (lessonPlanQuery.isError) {
+    return <div>Something weng wrong..</div>;
+  }
+
+  const sanitizeContent = sanitizeHtml(lessonPlanQuery?.data?.content ?? "");
+
   return (
     <div>
       <BreadcrumbsItems
@@ -28,8 +35,10 @@ export default function Page() {
       />
 
       <h1>Lesson Plan title: {lessonPlanQuery?.data?.title}</h1>
-      {/** Eventually set HTML */}
-      <p>{lessonPlanQuery?.data?.content}</p>
+      <div
+        className="sanitize-container"
+        dangerouslySetInnerHTML={{ __html: sanitizeContent }}
+      />
     </div>
   );
 }
