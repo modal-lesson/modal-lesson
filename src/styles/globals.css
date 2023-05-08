@@ -29,3 +29,22 @@ input:checked + .mantine-1thtv9i {
   background: #344e41 !important;
   color: #dad7cd !important;
 }
+
+/* Styles for sanitize html */
+
+.sanitize-container > h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 2rem;
+  margin-bottom: 1rem;
+}
+
+.sanitize-container > p {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.sanitize-container > ul {
+  margin-bottom: 1.5rem;
+}
