@@ -45,6 +45,11 @@ export const lessonPlanRouter = createTRPCRouter({
         where: {
           id: { in: lessonPlanIds },
         },
+        select: {
+          id: true,
+          title: true,
+          content: true,
+        },
       });
 
       return lessonPlans;

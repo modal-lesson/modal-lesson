@@ -38,6 +38,13 @@ export const classRouter = createTRPCRouter({
           id: ctx?.session?.user.id,
         },
       },
+      select: {
+        id: true,
+        name: true,
+        gradeLevel: true,
+        numberOfStudents: true,
+        day: true,
+      },
     });
 
     if (!getAll) {
