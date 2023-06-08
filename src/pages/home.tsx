@@ -1,5 +1,5 @@
 import { api } from "~/utils/api";
-import { Button } from "@mantine/core";
+import { Button, Loader } from "@mantine/core";
 import { ClassTable } from "~/components/ClassTable";
 import { useSession } from "next-auth/react";
 
@@ -9,7 +9,11 @@ export default function Page() {
   const classQuery = api.class.get.useQuery();
 
   if (classQuery.isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex justify-center items-center h-full">
+        <Loader color="green" />
+      </div>
+    );
   }
 
   return (

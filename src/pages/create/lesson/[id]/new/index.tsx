@@ -2,6 +2,7 @@ import { Editor } from "~/components/Editor";
 import { api } from "~/utils/api";
 import { notifications } from "@mantine/notifications";
 import { useRouter } from "next/router";
+import { Loader } from "@mantine/core";
 
 export default function Page() {
   const router = useRouter();
@@ -26,7 +27,11 @@ export default function Page() {
   });
 
   if (classQuery.isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex justify-center items-center h-full">
+        <Loader color="green" />
+      </div>
+    );
   }
 
   return (

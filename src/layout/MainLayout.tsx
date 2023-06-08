@@ -1,12 +1,61 @@
-import { useSession } from "next-auth/react";
-import { Sidebar } from "~/components/Sidebar";
+import {
+  AppShell,
+  Navbar,
+  Header,
+  Group,
+  ActionIcon,
+  useMantineColorScheme,
+} from "@mantine/core";
+import { MainLinks } from "~/components/MainLinks";
+import { User } from "~/components/User";
+import { IconMoonStars, IconSun } from "@tabler/icons-react";
 
 export function MainLayout({ children }: { children: React.ReactNode }) {
-  const { data: session } = useSession();
+  // eslint-disable-next-line @typescript-eslint/unbound-method
+  const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+
   return (
-    <div className="flex">
-      <Sidebar session={session} />
+    <AppShell
+      padding="md"
+      fixed={false}
+      navbar={
+        <Navbar width={{ base: 300 }} p="xs">
+          <Navbar.Section grow mt="xs">
+            <MainLinks />
+          </Navbar.Section>
+          <Navbar.Section>
+            <User />
+          </Navbar.Section>
+        </Navbar>
+      }
+      header={
+        <Header height={60}>
+          <Group sx={{ height: "100%" }} px={20} position="apart">
+            <div>LOGO</div>
+            <ActionIcon
+              variant="default"
+              onClick={() => toggleColorScheme()}
+              size={30}
+            >
+              {colorScheme === "dark" ? (
+                <IconSun size="1rem" />
+              ) : (
+                <IconMoonStars size="1rem" />
+              )}
+            </ActionIcon>
+          </Group>
+        </Header>
+      }
+      styles={(theme) => ({
+        main: {
+          backgroundColor:
+            theme.colorScheme === "dark"
+              ? theme.colors.dark[8]
+              : theme.colors.gray[0],
+        },
+      })}
+    >
       {children}
-    </div>
+    </AppShell>
   );
 }

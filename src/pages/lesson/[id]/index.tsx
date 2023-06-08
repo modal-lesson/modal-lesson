@@ -1,4 +1,4 @@
-import { Anchor, Breadcrumbs } from "@mantine/core";
+import { Anchor, Breadcrumbs, Loader } from "@mantine/core";
 import { useRouter } from "next/router";
 import { api } from "~/utils/api";
 import sanitizeHtml from "sanitize-html";
@@ -17,7 +17,11 @@ export default function Page() {
   );
 
   if (lessonPlanQuery.isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex justify-center items-center h-full">
+        <Loader color="green" />
+      </div>
+    );
   }
 
   if (lessonPlanQuery.isError) {
