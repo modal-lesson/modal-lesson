@@ -1,4 +1,4 @@
-import { Button } from "@mantine/core";
+import { Button, Loader } from "@mantine/core";
 import { useRouter } from "next/router";
 import { LessonPlanTable } from "~/components/LessonPlanTable";
 import { api } from "~/utils/api";
@@ -13,7 +13,11 @@ export default function Page() {
   );
 
   if (lessonPlanQuery.isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex justify-center items-center h-full">
+        <Loader color="green" />
+      </div>
+    );
   }
 
   return (
