@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { env } from "~/env.mjs";
 import { GRADE_OPTIONS } from "~/constants";
+import { MainLayout } from "~/layout/MainLayout";
 
 type FormValues = {
   title: string;
@@ -143,3 +144,7 @@ export default function Page() {
     </div>
   );
 }
+
+Page.getLayout = function getLayout(page: React.ReactElement) {
+  return <MainLayout>{page}</MainLayout>;
+};

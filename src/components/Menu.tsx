@@ -7,6 +7,7 @@ import {
 } from "@tabler/icons-react";
 import { type Session } from "next-auth";
 import { signOut } from "next-auth/react";
+import Link from "next/link";
 
 type MenuNavProps = {
   icon?: React.ReactNode;
@@ -28,19 +29,11 @@ export function MenuNav({ icon }: MenuNavProps) {
 
       <Menu.Dropdown>
         <Menu.Label>Application</Menu.Label>
-        <Menu.Item
-          component="a"
-          href="/settings"
-          icon={<IconSettings size={14} />}
-        >
-          Settings
+        <Menu.Item icon={<IconSettings size={14} />}>
+          <Link href="/settings">Settings</Link>
         </Menu.Item>
-        <Menu.Item
-          component="a"
-          href="/profile"
-          icon={<IconMessageCircle size={14} />}
-        >
-          Profile
+        <Menu.Item icon={<IconMessageCircle size={14} />}>
+          <Link href="/profile">Profile</Link>
         </Menu.Item>
         <Menu.Item
           icon={<IconSearch size={14} />}

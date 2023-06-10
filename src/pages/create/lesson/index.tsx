@@ -1,6 +1,7 @@
 import { notifications } from "@mantine/notifications";
 import { api } from "~/utils/api";
 import { Editor } from "~/components/Editor";
+import { MainLayout } from "~/layout/MainLayout";
 
 export default function Page() {
   const lessonPlanMutation = api.lessonPlan.create.useMutation({
@@ -20,3 +21,7 @@ export default function Page() {
     </div>
   );
 }
+
+Page.getLayout = function getLayout(page: React.ReactElement) {
+  return <MainLayout>{page}</MainLayout>;
+};

@@ -1,4 +1,6 @@
-import { type AppType } from "next/app";
+import { type ReactElement, type ReactNode } from "react";
+import { type NextPage } from "next";
+import { type AppProps } from "next/app";
 import { type Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 
@@ -17,7 +19,16 @@ import { emotionCache } from "~/emotionCache";
 import { useState } from "react";
 import { Notifications } from "@mantine/notifications";
 import { useRouter } from "next/router";
-import { MainLayout } from "~/layout/MainLayout";
+
+// eslint-disable-next-line @typescript-eslint/ban-types
+export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
+  getLayout?: (page: ReactElement) => ReactNode;
+};
+
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout;
+  session: Session | null;
+};
 
 const NONAUTHENTICATED_ROUTES = ["/login"];
 const AUTHENTICATED_ROUTES = [
@@ -32,10 +43,8 @@ const AUTHENTICATED_ROUTES = [
   "/lesson/[id]",
 ];
 
-const MyApp: AppType<{ session: Session | null }> = ({
-  Component,
-  pageProps: { session, ...pageProps },
-}) => {
+function MyApp({ Component, pageProps, session }: AppPropsWithLayout) {
+  const getLayout = Component.getLayout ?? ((page) => page);
   const router = useRouter();
   const [colorScheme, setColorScheme] = useState<ColorScheme>("dark");
 
@@ -63,9 +72,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
         >
           <Notifications position="bottom-center" className="!bg-primary" />
           {showSidebarInMainLayout ? (
-            <MainLayout>
-              <Component {...pageProps} />
-            </MainLayout>
+            <>{getLayout(<Component {...pageProps} />)}</>
           ) : (
             <LandingPageLayout>
               {!showLandingPageHeaderAndFooter && <Navbar />}
@@ -77,6 +84,6 @@ const MyApp: AppType<{ session: Session | null }> = ({
       </ColorSchemeProvider>
     </SessionProvider>
   );
-};
+}
 
 export default api.withTRPC(MyApp);

@@ -6,7 +6,8 @@ import {
   IconSettings,
   IconRobot,
 } from "@tabler/icons-react";
-import { ThemeIcon, UnstyledButton, Group, Text } from "@mantine/core";
+import { ThemeIcon, UnstyledButton, Group } from "@mantine/core";
+import Link from "next/link";
 
 interface MainLinkProps {
   icon: React.ReactNode;
@@ -39,9 +40,9 @@ function MainLink({ icon, color, label, href }: MainLinkProps) {
           {icon}
         </ThemeIcon>
 
-        <Text component="a" href={href} size="sm" className="!w-[150px]">
+        <Link href={href} className="w-[150px] text-sm">
           {label}
-        </Text>
+        </Link>
       </Group>
     </UnstyledButton>
   );

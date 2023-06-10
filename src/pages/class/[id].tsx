@@ -1,6 +1,8 @@
-import { Button, Loader } from "@mantine/core";
+import { Loader } from "@mantine/core";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { LessonPlanTable } from "~/components/LessonPlanTable";
+import { MainLayout } from "~/layout/MainLayout";
 import { api } from "~/utils/api";
 
 export default function Page() {
@@ -12,7 +14,10 @@ export default function Page() {
     { enabled: !!id }
   );
 
-  const classQuery = api.class.find.useQuery({ classId: id });
+  const classQuery = api.class.find.useQuery(
+    { classId: id },
+    { enabled: !!id }
+  );
 
   if (lessonPlanQuery.isLoading || classQuery.isLoading) {
     return (
@@ -25,15 +30,18 @@ export default function Page() {
   return (
     <div>
       <h1 className="text-4xl font-bold mb-5">{classQuery.data?.name}</h1>
-      <Button
-        component="a"
+      <Link
+        className="w-full bg-primary text-white text-sm font-bold px-4 py-3 rounded-md hover:!bg-primary-hover"
         href={`/create/lesson/${id}/new`}
-        className="!bg-primary hover:!bg-primary-hover"
       >
         Create a Lesson Plan
-      </Button>
+      </Link>
 
       <LessonPlanTable lessons={lessonPlanQuery.data} />
     </div>
   );
 }
+
+Page.getLayout = function getLayout(page: React.ReactElement) {
+  return <MainLayout>{page}</MainLayout>;
+};

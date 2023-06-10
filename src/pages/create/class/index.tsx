@@ -8,6 +8,7 @@ import { GRADE_OPTIONS, DAY_OPTIONS } from "~/constants";
 import { api } from "~/utils/api";
 import { notifications } from "@mantine/notifications";
 import { useRouter } from "next/router";
+import { MainLayout } from "~/layout/MainLayout";
 
 type ClassFormValues = {
   name: string;
@@ -177,3 +178,7 @@ export default function Page() {
     </div>
   );
 }
+
+Page.getLayout = function getLayout(page: React.ReactElement) {
+  return <MainLayout>{page}</MainLayout>;
+};

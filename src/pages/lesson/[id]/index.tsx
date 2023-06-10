@@ -2,6 +2,7 @@ import { Anchor, Breadcrumbs, Loader } from "@mantine/core";
 import { useRouter } from "next/router";
 import { api } from "~/utils/api";
 import sanitizeHtml from "sanitize-html";
+import { MainLayout } from "~/layout/MainLayout";
 
 export default function Page() {
   const router = useRouter();
@@ -75,3 +76,7 @@ function BreadcrumbsItems({
     </>
   );
 }
+
+Page.getLayout = function getLayout(page: React.ReactElement) {
+  return <MainLayout>{page}</MainLayout>;
+};
