@@ -35,8 +35,6 @@ export const lessonPlanRouter = createTRPCRouter({
         },
       });
 
-      console.log({ userClass });
-
       const lessonPlanIds = userClass?.lessonPlans.map((lessonPlan) => {
         return lessonPlan.lessonPlanId;
       });

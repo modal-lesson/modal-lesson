@@ -1,6 +1,7 @@
 import { Table } from "@mantine/core";
 import { useRouter } from "next/router";
 import { type RouterOutputs } from "~/utils/api";
+import sanitizeHtml from "sanitize-html";
 
 type ClassTableProps = {
   lessons?: RouterOutputs["lessonPlan"]["find"];
@@ -13,6 +14,18 @@ export function LessonPlanTable({ lessons }: ClassTableProps) {
     await router.push(`/lesson/${id}`);
   }
 
+  function removeHtmlTags(html: string, maxLength = 75) {
+    const sanitized = sanitizeHtml(html, {
+      allowedTags: [],
+      allowedAttributes: {},
+    });
+
+    if (sanitized.length > maxLength) {
+      return sanitized.slice(0, maxLength) + "...";
+    }
+    return sanitized;
+  }
+
   const rows = lessons?.map((lesson) => (
     <tr
       style={{ cursor: "pointer" }}
@@ -20,7 +33,7 @@ export function LessonPlanTable({ lessons }: ClassTableProps) {
       key={lesson.id}
     >
       <td>{lesson.title}</td>
-      <td>{lesson.content}</td>
+      <td>{removeHtmlTags(lesson.content ?? "")}</td>
     </tr>
   ));
 

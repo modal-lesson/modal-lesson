@@ -12,7 +12,9 @@ export default function Page() {
     { enabled: !!id }
   );
 
-  if (lessonPlanQuery.isLoading) {
+  const classQuery = api.class.find.useQuery({ classId: id });
+
+  if (lessonPlanQuery.isLoading || classQuery.isLoading) {
     return (
       <div className="flex justify-center items-center h-full">
         <Loader color="green" />
@@ -22,7 +24,7 @@ export default function Page() {
 
   return (
     <div>
-      <h1>Class {id}</h1>
+      <h1 className="text-4xl font-bold mb-5">{classQuery.data?.name}</h1>
       <Button
         component="a"
         href={`/create/lesson/${id}/new`}
