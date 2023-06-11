@@ -1,8 +1,11 @@
-import { Anchor, Breadcrumbs, Loader } from "@mantine/core";
+import { Breadcrumbs, Loader } from "@mantine/core";
 import { useRouter } from "next/router";
 import { api } from "~/utils/api";
 import sanitizeHtml from "sanitize-html";
 import { MainLayout } from "~/layout/MainLayout";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { cn } from "~/lib/utils";
 
 export default function Page() {
   const router = useRouter();
@@ -48,6 +51,8 @@ export default function Page() {
   );
 }
 
+// Create Generic Breadcrumbs component and adjust as needed
+
 function BreadcrumbsItems({
   title,
   lessonPlanId,
@@ -57,17 +62,37 @@ function BreadcrumbsItems({
   lessonPlanId?: string;
   classId?: string;
 }) {
+  const [activeLink, setActiveLink] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (router.asPath === `/lesson/${lessonPlanId as string}`) {
+      setActiveLink(true);
+    }
+  }, [router, lessonPlanId]);
+
   const items = [
-    { title: "Home", href: "/home" },
-    { title: "Class", href: `/class/${classId as string}` },
+    { title: "Home", href: "/home", activeLink },
+    { title: "Class", href: `/class/${classId as string}`, activeLink },
     {
       title: `${title as string}`,
       href: `${lessonPlanId as string}`,
+      activeLink,
     },
   ].map((item, index) => (
-    <Anchor href={item.href} key={index}>
+    <Link
+      key={index}
+      className={cn(
+        ` hover:text-primary underline underline-offset-4 ${
+          item.activeLink && item.title === title
+            ? "text-white"
+            : "text-secondary"
+        }`
+      )}
+      href={item.href}
+    >
       {item.title}
-    </Anchor>
+    </Link>
   ));
 
   return (

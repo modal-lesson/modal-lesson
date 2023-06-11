@@ -99,8 +99,6 @@ export default function Page() {
               onChange={onChange}
               label="Class Start Date"
               placeholder="Start Date"
-              maw={400}
-              mx="auto"
             />
           )}
         />
@@ -114,8 +112,6 @@ export default function Page() {
               onChange={onChange}
               label="Class End Date"
               placeholder="End date"
-              maw={400}
-              mx="auto"
             />
           )}
         />
@@ -132,8 +128,6 @@ export default function Page() {
                   <IconClock size="1rem" stroke={1.5} />
                 </ActionIcon>
               }
-              maw={400}
-              mx="auto"
             />
           )}
         />
@@ -150,8 +144,6 @@ export default function Page() {
                   <IconClock size="1rem" stroke={1.5} />
                 </ActionIcon>
               }
-              maw={400}
-              mx="auto"
             />
           )}
         />
@@ -169,7 +161,7 @@ export default function Page() {
         />
         <Button
           loading={classMutation.isLoading}
-          className="!bg-primary hover:!bg-primary-hover"
+          className="!bg-primary hover:!bg-primary-hover mt-5"
           type="submit"
         >
           {classMutation.isLoading ? "Creating..." : "Create Class"}

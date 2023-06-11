@@ -9,6 +9,7 @@ import {
 import { MainLinks } from "~/components/MainLinks";
 import { User } from "~/components/User";
 import { IconMoonStars, IconSun } from "@tabler/icons-react";
+import Link from "next/link";
 
 export function MainLayout({ children }: { children: React.ReactNode }) {
   // eslint-disable-next-line @typescript-eslint/unbound-method
@@ -31,7 +32,9 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
       header={
         <Header height={60}>
           <Group sx={{ height: "100%" }} px={20} position="apart">
-            <div>LOGO</div>
+            <div className="font-bold">
+              <Link href="/home">LOGO</Link>
+            </div>
             <ActionIcon
               variant="default"
               onClick={() => toggleColorScheme()}

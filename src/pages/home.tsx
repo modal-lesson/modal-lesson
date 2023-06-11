@@ -20,7 +20,7 @@ export default function Page() {
 
   return (
     <div className="w-full">
-      <h1>Welcome {userName}</h1>
+      <h1 className="text-4xl font-bold mb-5">Welcome {userName}</h1>
       <Link
         className="w-full bg-primary text-white text-sm font-bold px-4 py-3 rounded-md hover:!bg-primary-hover"
         href="/create/class"
