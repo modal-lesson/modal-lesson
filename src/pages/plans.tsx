@@ -86,7 +86,7 @@ export default function Page() {
       <div className="flex justify-between gap-6 mt-5 px-4">
         {Array.from(Array(7).keys()).map((i) => {
           const currentDate = currentWeek.start.startOf("week").add(i, "day");
-          const isToday = currentDate.isToday(); // Check if currentDate is today
+          const isToday = currentDate.isToday();
           return (
             <div
               key={i}

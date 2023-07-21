@@ -5,6 +5,8 @@ type DayType = {
   label: Day;
 }[];
 
+export type GradeType = typeof GRADE_OPTIONS;
+
 export const GRADE_OPTIONS = [
   { value: "Kindergarten", label: "Kindergarten" },
   { value: "First Grade", label: "First Grade" },
