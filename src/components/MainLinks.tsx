@@ -56,6 +56,12 @@ const data = [
     href: "/home",
   },
   {
+    icon: <IconHome size="1rem" />,
+    color: "grape",
+    label: "Plans",
+    href: "/plans",
+  },
+  {
     icon: <IconCalendar size="1rem" />,
     color: "teal",
     label: "Calendar",

@@ -74,9 +74,9 @@ export default function Page() {
         <Controller
           name="gradeLevel"
           control={control}
-          render={({ field }) => (
+          render={() => (
             <Select
-              {...field}
+              // {...field}
               label="Grade Level"
               placeholder="Pick one"
               data={GRADE_OPTIONS}
@@ -96,7 +96,7 @@ export default function Page() {
             <DateInput
               {...field}
               value={value as unknown as Date}
-              onChange={onChange}
+              onChange={onChange as unknown as (value: Date) => void}
               label="Class Start Date"
               placeholder="Start Date"
             />
@@ -109,7 +109,7 @@ export default function Page() {
             <DateInput
               {...field}
               value={value as unknown as Date}
-              onChange={onChange}
+              onChange={onChange as unknown as (value: Date) => void}
               label="Class End Date"
               placeholder="End date"
             />
@@ -150,9 +150,9 @@ export default function Page() {
         <Controller
           name="day"
           control={control}
-          render={({ field }) => (
+          render={() => (
             <Select
-              {...field}
+              // {...field}
               label="A or B day"
               placeholder="Pick one"
               data={DAY_OPTIONS}

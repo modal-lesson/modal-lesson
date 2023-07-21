@@ -103,15 +103,16 @@ export default function Page() {
         <Controller
           name="grade"
           control={control}
-          render={({ field }) => (
-            <Select
-              {...field}
-              label="Grade Level"
-              placeholder="Pick one"
-              data={GRADE_OPTIONS}
-              required
-            />
-          )}
+          render={() => {
+            return (
+              <Select
+                label="Grade Level"
+                placeholder="Pick one"
+                data={GRADE_OPTIONS}
+                required
+              />
+            );
+          }}
         />
 
         <TextInput
