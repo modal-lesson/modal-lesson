@@ -103,12 +103,9 @@ export default function Page() {
         <Controller
           name="grade"
           control={control}
-          render={({ field }) => {
+          render={() => {
             return (
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-ignore
               <Select
-                {...field}
                 label="Grade Level"
                 placeholder="Pick one"
                 data={GRADE_OPTIONS}
