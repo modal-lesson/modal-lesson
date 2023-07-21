@@ -33,6 +33,7 @@ type AppPropsWithLayout = AppProps & {
 const NONAUTHENTICATED_ROUTES = ["/login"];
 const AUTHENTICATED_ROUTES = [
   "/home",
+  "/plans",
   "/settings",
   "/profile",
   "/create",
