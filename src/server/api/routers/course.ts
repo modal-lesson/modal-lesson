@@ -4,10 +4,10 @@ import {
   publicProcedure,
 } from "~/server/api/trpc";
 import { z } from "zod";
-import { Day } from "@prisma/client";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import { TRPCError } from "@trpc/server";
+import { createCourseValidator } from "~/lib/validator";
 
 dayjs.extend(customParseFormat);
 
@@ -70,18 +70,7 @@ export const courseRouter = createTRPCRouter({
     return getAll;
   }),
   create: protectedProcedure
-    .input(
-      z.object({
-        name: z.string(),
-        gradeLevel: z.string(),
-        numberOfStudents: z.number(),
-        classStartDate: z.date(),
-        classEndDate: z.date(),
-        startTime: z.string(),
-        endTime: z.string(),
-        day: z.nativeEnum(Day),
-      })
-    )
+    .input(createCourseValidator)
     .mutation(async ({ ctx, input }) => {
       // TODO: startTime and endTime gets the job done but explore if there's a better way
       const createCourse = await ctx.prisma.course.create({
@@ -98,5 +87,15 @@ export const courseRouter = createTRPCRouter({
       });
 
       return createCourse;
+    }),
+
+  delete: protectedProcedure
+    .input(z.object({ courseId: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      return ctx.prisma.course.delete({
+        where: {
+          id: input.courseId,
+        },
+      });
     }),
 });

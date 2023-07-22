@@ -22,6 +22,13 @@ export const lessonPlanRouter = createTRPCRouter({
         },
       });
 
+      if (!lessonPlan) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Lesson plan not found",
+        });
+      }
+
       // Other users can't view this lesson plan if it doesn't belong to them
       if (lessonPlan?.course?.userId !== user?.id) {
         throw new TRPCError({

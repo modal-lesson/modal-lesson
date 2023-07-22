@@ -10,17 +10,11 @@ import { notifications } from "@mantine/notifications";
 import { useRouter } from "next/router";
 import { MainLayout } from "~/layout/MainLayout";
 import { getServerSideProps } from "~/server/serverProps";
-
-type CourseFormValues = {
-  name: string;
-  gradeLevel: string;
-  numberOfStudents: number;
-  classStartDate: Date;
-  classEndDate: Date;
-  startTime: string;
-  endTime: string;
-  day: "A" | "B";
-};
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  type CourseSchemaValidator,
+  createCourseValidator,
+} from "~/lib/validator";
 
 export default function Page() {
   // Ref is here to use Browser input vs the render from the controller.
@@ -40,7 +34,13 @@ export default function Page() {
     },
   });
 
-  const { register, control, handleSubmit, reset } = useForm<CourseFormValues>({
+  const {
+    register,
+    control,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<CourseSchemaValidator>({
     defaultValues: {
       name: "",
       gradeLevel: "",
@@ -51,12 +51,14 @@ export default function Page() {
       endTime: "",
       day: "A",
     },
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
+    resolver: zodResolver(createCourseValidator),
   });
 
-  const onSubmit = (data: CourseFormValues) => {
+  const onSubmit = (data: CourseSchemaValidator) => {
     courseMutation.mutate({
       ...data,
-      numberOfStudents: Number(data.numberOfStudents),
+      numberOfStudents: data.numberOfStudents,
     });
     reset();
   };
@@ -67,11 +69,13 @@ export default function Page() {
       {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
       <form onSubmit={handleSubmit(onSubmit)}>
         <TextInput
-          {...register("name")}
+          {...register("name", { required: true })}
           placeholder="Course Name"
           label="Course name"
           required
+          error={errors.name?.message}
         />
+        {errors.name && <p className="text-red-500">{errors.name.message}</p>}
         <Controller
           name="gradeLevel"
           control={control}
@@ -82,11 +86,12 @@ export default function Page() {
               label="Grade Level"
               placeholder="Pick one"
               data={GRADE_OPTIONS}
+              required
             />
           )}
         />
         <TextInput
-          {...register("numberOfStudents")}
+          {...register("numberOfStudents", { valueAsNumber: true })}
           placeholder="Number of students"
           label="Number of students"
         />
@@ -152,9 +157,10 @@ export default function Page() {
         <Controller
           name="day"
           control={control}
-          render={() => (
+          render={({ field: { onChange, value } }) => (
             <Select
-              // {...field}
+              onChange={onChange as unknown as (value: string) => void}
+              value={value}
               label="A or B day"
               placeholder="Pick one"
               data={DAY_OPTIONS}

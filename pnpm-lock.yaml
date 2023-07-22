@@ -4,6 +4,7 @@ specifiers:
   '@emotion/react': ^11.11.1
   '@emotion/server': ^11.11.0
   '@heroicons/react': ^2.0.18
+  '@hookform/resolvers': ^3.1.1
   '@mantine/core': ^6.0.16
   '@mantine/dates': ^6.0.16
   '@mantine/hooks': ^6.0.16
@@ -67,6 +68,7 @@ dependencies:
   '@emotion/react': 11.11.1_i73ekzlbntu7jol6ph2fvy4mga
   '@emotion/server': 11.11.0
   '@heroicons/react': 2.0.18_react@18.2.0
+  '@hookform/resolvers': 3.1.1_react-hook-form@7.45.1
   '@mantine/core': 6.0.16_lnj3546omx7ofcu37a37b23qjq
   '@mantine/dates': 6.0.16_bwrdjd7tmno2hjfoxfnbjgszy4
   '@mantine/hooks': 6.0.16_react@18.2.0
@@ -588,6 +590,14 @@ packages:
       react: '>= 16'
     dependencies:
       react: 18.2.0
+    dev: false
+
+  /@hookform/resolvers/3.1.1_react-hook-form@7.45.1:
+    resolution: {integrity: sha512-tS16bAUkqjITNSvbJuO1x7MXbn7Oe8ZziDTJdA9mMvsoYthnOOiznOTGBYwbdlYBgU+tgpI/BtTU3paRbCuSlg==}
+    peerDependencies:
+      react-hook-form: ^7.0.0
+    dependencies:
+      react-hook-form: 7.45.1_react@18.2.0
     dev: false
 
   /@humanwhocodes/config-array/0.11.10:
