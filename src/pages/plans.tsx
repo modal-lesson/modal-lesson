@@ -3,7 +3,7 @@ import { MainLayout } from "~/layout/MainLayout";
 import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { getServerSideProps } from "./serverProps";
+import { getServerSideProps } from "../server/serverProps";
 import isToday from "dayjs/plugin/isToday";
 dayjs.extend(isToday);
 

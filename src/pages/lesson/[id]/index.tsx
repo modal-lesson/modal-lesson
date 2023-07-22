@@ -6,7 +6,7 @@ import { MainLayout } from "~/layout/MainLayout";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { cn } from "~/lib/utils";
-import { getServerSideProps } from "~/pages/serverProps";
+import { getServerSideProps } from "~/server/serverProps";
 
 export default function Page() {
   const router = useRouter();

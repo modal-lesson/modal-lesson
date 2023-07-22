@@ -9,7 +9,7 @@ import { api } from "~/utils/api";
 import { notifications } from "@mantine/notifications";
 import { useRouter } from "next/router";
 import { MainLayout } from "~/layout/MainLayout";
-import { getServerSideProps } from "~/pages/serverProps";
+import { getServerSideProps } from "~/server/serverProps";
 
 type ClassFormValues = {
   name: string;

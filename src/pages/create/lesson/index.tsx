@@ -2,7 +2,7 @@ import { notifications } from "@mantine/notifications";
 import { api } from "~/utils/api";
 import { Editor } from "~/components/Editor";
 import { MainLayout } from "~/layout/MainLayout";
-import { getServerSideProps } from "~/pages/serverProps";
+import { getServerSideProps } from "~/server/serverProps";
 
 export default function Page() {
   const lessonPlanMutation = api.lessonPlan.create.useMutation({

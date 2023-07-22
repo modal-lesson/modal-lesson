@@ -4,7 +4,7 @@ import { ClassTable } from "~/components/ClassTable";
 import { MainLayout } from "~/layout/MainLayout";
 import Link from "next/link";
 import { type Session } from "next-auth";
-import { getServerSideProps } from "./serverProps";
+import { getServerSideProps } from "../server/serverProps";
 
 export default function Page({ session }: { session: Session }) {
   const userName = session?.user.name?.split(" ")[0];

@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { LessonPlanTable } from "~/components/LessonPlanTable";
 import { MainLayout } from "~/layout/MainLayout";
 import { api } from "~/utils/api";
-import { getServerSideProps } from "~/pages/serverProps";
+import { getServerSideProps } from "~/server/serverProps";
 
 export default function Page() {
   const router = useRouter();

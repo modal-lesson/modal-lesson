@@ -4,7 +4,7 @@ import { Controller, useForm } from "react-hook-form";
 import { env } from "~/env.mjs";
 import { GRADE_OPTIONS } from "~/constants";
 import { MainLayout } from "~/layout/MainLayout";
-import { getServerSideProps } from "~/pages/serverProps";
+import { getServerSideProps } from "~/server/serverProps";
 
 type FormValues = {
   title: string;

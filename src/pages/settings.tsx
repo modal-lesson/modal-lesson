@@ -1,5 +1,5 @@
 import { MainLayout } from "~/layout/MainLayout";
-import { getServerSideProps } from "~/pages/serverProps";
+import { getServerSideProps } from "~/server/serverProps";
 
 export default function Page() {
   return <div>Settings</div>;
