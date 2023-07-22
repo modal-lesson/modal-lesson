@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { LessonPlanTable } from "~/components/LessonPlanTable";
 import { MainLayout } from "~/layout/MainLayout";
 import { api } from "~/utils/api";
+import { getServerSideProps } from "~/pages/serverProps";
 
 export default function Page() {
   const router = useRouter();
@@ -45,3 +46,5 @@ export default function Page() {
 Page.getLayout = function getLayout(page: React.ReactElement) {
   return <MainLayout>{page}</MainLayout>;
 };
+
+export { getServerSideProps };

@@ -6,6 +6,7 @@ import { MainLayout } from "~/layout/MainLayout";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { cn } from "~/lib/utils";
+import { getServerSideProps } from "~/pages/serverProps";
 
 export default function Page() {
   const router = useRouter();
@@ -105,3 +106,5 @@ function BreadcrumbsItems({
 Page.getLayout = function getLayout(page: React.ReactElement) {
   return <MainLayout>{page}</MainLayout>;
 };
+
+export { getServerSideProps };

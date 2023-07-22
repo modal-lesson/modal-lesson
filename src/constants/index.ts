@@ -36,3 +36,17 @@ export const DAY_OPTIONS: DayType = [
     label: "B",
   },
 ];
+
+export const NONAUTHENTICATED_ROUTES = ["/login"];
+export const AUTHENTICATED_ROUTES = [
+  "/home",
+  "/plans",
+  "/settings",
+  "/profile",
+  "/create",
+  "/create/lesson",
+  "/create/class",
+  "/class/[id]",
+  "/create/lesson/[id]/new",
+  "/lesson/[id]",
+];

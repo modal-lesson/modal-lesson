@@ -9,6 +9,7 @@ import { api } from "~/utils/api";
 import { notifications } from "@mantine/notifications";
 import { useRouter } from "next/router";
 import { MainLayout } from "~/layout/MainLayout";
+import { getServerSideProps } from "~/pages/serverProps";
 
 type ClassFormValues = {
   name: string;
@@ -174,3 +175,5 @@ export default function Page() {
 Page.getLayout = function getLayout(page: React.ReactElement) {
   return <MainLayout>{page}</MainLayout>;
 };
+
+export { getServerSideProps };

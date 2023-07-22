@@ -4,6 +4,7 @@ import { notifications } from "@mantine/notifications";
 import { useRouter } from "next/router";
 import { Loader } from "@mantine/core";
 import { MainLayout } from "~/layout/MainLayout";
+import { getServerSideProps } from "~/pages/serverProps";
 
 export default function Page() {
   const router = useRouter();
@@ -47,3 +48,5 @@ export default function Page() {
 Page.getLayout = function getLayout(page: React.ReactElement) {
   return <MainLayout>{page}</MainLayout>;
 };
+
+export { getServerSideProps };

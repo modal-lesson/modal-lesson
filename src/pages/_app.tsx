@@ -19,6 +19,7 @@ import { emotionCache } from "~/emotionCache";
 import { useState } from "react";
 import { Notifications } from "@mantine/notifications";
 import { useRouter } from "next/router";
+import { AUTHENTICATED_ROUTES, NONAUTHENTICATED_ROUTES } from "~/constants";
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
@@ -29,20 +30,6 @@ type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
   session: Session | null;
 };
-
-const NONAUTHENTICATED_ROUTES = ["/login"];
-const AUTHENTICATED_ROUTES = [
-  "/home",
-  "/plans",
-  "/settings",
-  "/profile",
-  "/create",
-  "/create/lesson",
-  "/create/class",
-  "/class/[id]",
-  "/create/lesson/[id]/new",
-  "/lesson/[id]",
-];
 
 function MyApp({ Component, pageProps, session }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page);

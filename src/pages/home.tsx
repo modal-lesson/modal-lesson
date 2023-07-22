@@ -1,12 +1,12 @@
 import { api } from "~/utils/api";
 import { Loader } from "@mantine/core";
 import { ClassTable } from "~/components/ClassTable";
-import { useSession } from "next-auth/react";
 import { MainLayout } from "~/layout/MainLayout";
 import Link from "next/link";
+import { type Session } from "next-auth";
+import { getServerSideProps } from "./serverProps";
 
-export default function Page() {
-  const { data: session } = useSession();
+export default function Page({ session }: { session: Session }) {
   const userName = session?.user.name?.split(" ")[0];
   const classQuery = api.class.get.useQuery();
 
@@ -38,3 +38,5 @@ export default function Page() {
 Page.getLayout = function getLayout(page: React.ReactElement) {
   return <MainLayout>{page}</MainLayout>;
 };
+
+export { getServerSideProps };

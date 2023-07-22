@@ -1,4 +1,5 @@
 import { MainLayout } from "~/layout/MainLayout";
+import { getServerSideProps } from "~/pages/serverProps";
 
 export default function Page() {
   return <div>Settings</div>;
@@ -7,3 +8,5 @@ export default function Page() {
 Page.getLayout = function getLayout(page: React.ReactElement) {
   return <MainLayout>{page}</MainLayout>;
 };
+
+export { getServerSideProps };
