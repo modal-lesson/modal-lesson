@@ -10,11 +10,11 @@ export default function Page() {
   const router = useRouter();
   const { id } = router.query;
 
-  const classQuery = api.class.find.useQuery(
-    { classId: id as string },
+  const courseQuery = api.course.find.useQuery(
+    { courseId: id as string },
     { enabled: !!id }
   );
-  const className = classQuery.data?.name;
+  const courseName = courseQuery.data?.name;
 
   const lessonPlanMutation = api.lessonPlan.create.useMutation({
     onSuccess: async () => {
@@ -24,11 +24,11 @@ export default function Page() {
         color: "green",
       });
 
-      await router.push(`/class/${id as string}`);
+      await router.push(`/course/${id as string}`);
     },
   });
 
-  if (classQuery.isLoading) {
+  if (courseQuery.isLoading) {
     return (
       <div className="flex justify-center items-center h-full">
         <Loader color="green" />
@@ -39,7 +39,7 @@ export default function Page() {
   return (
     <div>
       <h1>Lesson Plan</h1>
-      <p>Creating a Lesson plan for: {className}</p>
+      <p>Creating a Lesson plan for: {courseName}</p>
       <Editor id={id as string} lessonPlanMutation={lessonPlanMutation} />
     </div>
   );

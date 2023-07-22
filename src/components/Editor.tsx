@@ -46,7 +46,7 @@ export function Editor({ lessonPlanMutation, id }: EditorProps) {
     lessonPlanMutation.mutate({
       title,
       content: html ?? "",
-      classId: id as string,
+      courseId: id as string,
     });
   };
 

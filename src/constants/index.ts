@@ -45,8 +45,8 @@ export const AUTHENTICATED_ROUTES = [
   "/profile",
   "/create",
   "/create/lesson",
-  "/create/class",
-  "/class/[id]",
+  "/create/course",
+  "/course/[id]",
   "/create/lesson/[id]/new",
   "/lesson/[id]",
 ];

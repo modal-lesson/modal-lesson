@@ -11,28 +11,41 @@ import { TRPCError } from "@trpc/server";
 
 dayjs.extend(customParseFormat);
 
-export const classRouter = createTRPCRouter({
+export const courseRouter = createTRPCRouter({
   find: protectedProcedure
-    .input(z.object({ classId: z.string() }))
+    .input(z.object({ courseId: z.string() }))
     .query(async ({ ctx, input }) => {
-      const findClass = await ctx.prisma.class.findUnique({
+      const user = await ctx.prisma.user.findUnique({
         where: {
-          id: input.classId,
+          id: ctx.session.user.id,
         },
       });
 
-      if (!findClass) {
+      const findCourse = await ctx.prisma.course.findUnique({
+        where: {
+          id: input.courseId,
+        },
+      });
+
+      if (findCourse?.userId !== user?.id) {
+        throw new TRPCError({
+          code: "UNAUTHORIZED",
+          message: "Unauthorized to access this course",
+        });
+      }
+
+      if (!findCourse) {
         throw new TRPCError({
           code: "NOT_FOUND",
           message: "Class not found",
         });
       }
 
-      return findClass;
+      return findCourse;
     }),
   get: publicProcedure.query(async ({ ctx }) => {
     //TODO: Pagination
-    const getAll = await ctx.prisma.class.findMany({
+    const getAll = await ctx.prisma.course.findMany({
       where: {
         user: {
           id: ctx?.session?.user.id,
@@ -71,7 +84,7 @@ export const classRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       // TODO: startTime and endTime gets the job done but explore if there's a better way
-      const createClass = await ctx.prisma.class.create({
+      const createCourse = await ctx.prisma.course.create({
         data: {
           ...input,
           startTime: dayjs(input.startTime, "HH:mm").toDate(),
@@ -84,6 +97,6 @@ export const classRouter = createTRPCRouter({
         },
       });
 
-      return createClass;
+      return createCourse;
     }),
 });

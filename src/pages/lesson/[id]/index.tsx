@@ -7,8 +7,10 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { cn } from "~/lib/utils";
 import { getServerSideProps } from "~/server/serverProps";
+import { TRPCClientError } from "@trpc/client";
 
 export default function Page() {
+  const [queryError, setQueryError] = useState("");
   const router = useRouter();
   const { id } = router.query;
 
@@ -17,6 +19,12 @@ export default function Page() {
       id: id as string,
     },
     {
+      onError: (error) => {
+        if (error instanceof TRPCClientError) {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-argument
+          setQueryError(error?.shape?.message);
+        }
+      },
       enabled: !!id,
     }
   );
@@ -30,7 +38,7 @@ export default function Page() {
   }
 
   if (lessonPlanQuery.isError) {
-    return <div>Something weng wrong..</div>;
+    return <div>{queryError}</div>;
   }
 
   const sanitizeContent = sanitizeHtml(lessonPlanQuery?.data?.content ?? "");
@@ -40,7 +48,7 @@ export default function Page() {
       <BreadcrumbsItems
         title={lessonPlanQuery?.data?.title}
         lessonPlanId={lessonPlanQuery?.data?.id}
-        classId={lessonPlanQuery?.data?.classes[0]?.classId}
+        courseId={lessonPlanQuery?.data?.courseId}
       />
 
       <h1>Lesson Plan title: {lessonPlanQuery?.data?.title}</h1>
@@ -57,11 +65,11 @@ export default function Page() {
 function BreadcrumbsItems({
   title,
   lessonPlanId,
-  classId,
+  courseId,
 }: {
   title?: string;
   lessonPlanId?: string;
-  classId?: string;
+  courseId?: string | null;
 }) {
   const [activeLink, setActiveLink] = useState(false);
   const router = useRouter();
@@ -74,7 +82,7 @@ function BreadcrumbsItems({
 
   const items = [
     { title: "Home", href: "/home", activeLink },
-    { title: "Class", href: `/class/${classId as string}`, activeLink },
+    { title: "Course", href: `/course/${courseId as string}`, activeLink },
     {
       title: `${title as string}`,
       href: `${lessonPlanId as string}`,

@@ -8,9 +8,9 @@ import { getServerSideProps } from "../server/serverProps";
 
 export default function Page({ session }: { session: Session }) {
   const userName = session?.user.name?.split(" ")[0];
-  const classQuery = api.class.get.useQuery();
+  const courseQuery = api.course.get.useQuery();
 
-  if (classQuery.isLoading) {
+  if (courseQuery.isLoading) {
     return (
       <div className="flex justify-center items-center h-full">
         <Loader color="green" />
@@ -23,13 +23,13 @@ export default function Page({ session }: { session: Session }) {
       <h1 className="text-4xl font-bold mb-5">Welcome {userName}</h1>
       <Link
         className="w-full bg-primary text-white text-sm font-bold px-4 py-3 rounded-md hover:!bg-primary-hover"
-        href="/create/class"
+        href="/create/course"
       >
-        Create a class
+        Create a course
       </Link>
 
       <div>
-        <ClassTable classes={classQuery?.data} />
+        <ClassTable courses={courseQuery?.data} />
       </div>
     </div>
   );

@@ -1,3 +1,4 @@
+import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 
 import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
@@ -6,14 +7,28 @@ export const lessonPlanRouter = createTRPCRouter({
   findOne: protectedProcedure
     .input(z.object({ id: z.string() }))
     .query(async ({ ctx, input }) => {
+      const user = await ctx.prisma.user.findUnique({
+        where: {
+          id: ctx.session.user.id,
+        },
+      });
+
       const lessonPlan = await ctx.prisma.lessonPlan.findUnique({
         where: {
           id: input.id,
         },
         include: {
-          classes: true,
+          course: true,
         },
       });
+
+      // Other users can't view this lesson plan if it doesn't belong to them
+      if (lessonPlan?.course?.userId !== user?.id) {
+        throw new TRPCError({
+          code: "UNAUTHORIZED",
+          message: "You are not authorized to view this lesson plan",
+        });
+      }
 
       return lessonPlan;
     }),
@@ -25,7 +40,7 @@ export const lessonPlanRouter = createTRPCRouter({
       })
     )
     .query(async ({ ctx, input }) => {
-      const userClass = await ctx.prisma.class.findUnique({
+      const course = await ctx.prisma.course.findUnique({
         where: {
           id: input.id,
         },
@@ -35,8 +50,8 @@ export const lessonPlanRouter = createTRPCRouter({
         },
       });
 
-      const lessonPlanIds = userClass?.lessonPlans.map((lessonPlan) => {
-        return lessonPlan.lessonPlanId;
+      const lessonPlanIds = course?.lessonPlans.map((lessonPlan) => {
+        return lessonPlan.id;
       });
 
       const lessonPlans = await ctx.prisma.lessonPlan.findMany({
@@ -57,7 +72,7 @@ export const lessonPlanRouter = createTRPCRouter({
       z.object({
         title: z.string(),
         content: z.string(),
-        classId: z.string(),
+        courseId: z.string(),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -70,13 +85,9 @@ export const lessonPlanRouter = createTRPCRouter({
               id: ctx.session.user.id,
             },
           },
-          classes: {
-            create: {
-              class: {
-                connect: {
-                  id: input.classId,
-                },
-              },
+          course: {
+            connect: {
+              id: input.courseId,
             },
           },
         },

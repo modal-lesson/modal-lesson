@@ -11,7 +11,7 @@ import { useRouter } from "next/router";
 import { MainLayout } from "~/layout/MainLayout";
 import { getServerSideProps } from "~/server/serverProps";
 
-type ClassFormValues = {
+type CourseFormValues = {
   name: string;
   gradeLevel: string;
   numberOfStudents: number;
@@ -28,11 +28,11 @@ export default function Page() {
   const timeEndRef = useRef() as MutableRefObject<HTMLInputElement>;
   const router = useRouter();
 
-  const classMutation = api.class.create.useMutation({
+  const courseMutation = api.course.create.useMutation({
     onSuccess: async () => {
       notifications.show({
         title: "Success",
-        message: "Class created successfully",
+        message: "Course created successfully",
         color: "green",
       });
 
@@ -40,7 +40,7 @@ export default function Page() {
     },
   });
 
-  const { register, control, handleSubmit, reset } = useForm<ClassFormValues>({
+  const { register, control, handleSubmit, reset } = useForm<CourseFormValues>({
     defaultValues: {
       name: "",
       gradeLevel: "",
@@ -53,8 +53,8 @@ export default function Page() {
     },
   });
 
-  const onSubmit = (data: ClassFormValues) => {
-    classMutation.mutate({
+  const onSubmit = (data: CourseFormValues) => {
+    courseMutation.mutate({
       ...data,
       numberOfStudents: Number(data.numberOfStudents),
     });
@@ -63,21 +63,22 @@ export default function Page() {
 
   return (
     <div>
-      <h1>Create your class</h1>
+      <h1>Create your course</h1>
       {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
       <form onSubmit={handleSubmit(onSubmit)}>
         <TextInput
           {...register("name")}
-          placeholder="Class Name"
-          label="Class name"
+          placeholder="Course Name"
+          label="Course name"
           required
         />
         <Controller
           name="gradeLevel"
           control={control}
-          render={() => (
+          render={({ field: { onChange, value } }) => (
             <Select
-              // {...field}
+              onChange={onChange as unknown as (value: string) => void}
+              value={value}
               label="Grade Level"
               placeholder="Pick one"
               data={GRADE_OPTIONS}
@@ -161,11 +162,11 @@ export default function Page() {
           )}
         />
         <Button
-          loading={classMutation.isLoading}
+          loading={courseMutation.isLoading}
           className="!bg-primary hover:!bg-primary-hover mt-5"
           type="submit"
         >
-          {classMutation.isLoading ? "Creating..." : "Create Class"}
+          {courseMutation.isLoading ? "Creating..." : "Create Class"}
         </Button>
       </form>
     </div>

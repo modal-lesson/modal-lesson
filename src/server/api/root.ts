@@ -5,7 +5,7 @@ import { productRouter } from "./routers/product";
 import { lessonPlanRouter } from "./routers/lessonPlan";
 import { userRouter } from "./routers/user";
 import { aiRouter } from "./routers/ai";
-import { classRouter } from "./routers/class";
+import { courseRouter } from "./routers/course";
 
 /**
  * This is the primary router for your server.
@@ -18,8 +18,8 @@ export const appRouter = createTRPCRouter({
   stripe: stripeRouter,
   product: productRouter,
   ai: aiRouter,
+  course: courseRouter,
   lessonPlan: lessonPlanRouter,
-  class: classRouter,
 });
 
 // export type definition of API

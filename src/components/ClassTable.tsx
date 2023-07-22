@@ -2,39 +2,39 @@ import { Table } from "@mantine/core";
 import { useRouter } from "next/router";
 import { type RouterOutputs } from "~/utils/api";
 
-type ClassTableProps = {
-  classes?: RouterOutputs["class"]["get"];
+type CourseTableProps = {
+  courses?: RouterOutputs["course"]["get"];
 };
 
-export function ClassTable({ classes }: ClassTableProps) {
+export function ClassTable({ courses }: CourseTableProps) {
   const router = useRouter();
 
   async function handleRoute(id: string) {
-    await router.push(`/class/${id}`);
+    await router.push(`/course/${id}`);
   }
 
-  const rows = classes?.map((c) => (
+  const rows = courses?.map((course) => (
     <tr
       style={{ cursor: "pointer" }}
-      onClick={() => void handleRoute(c.id)}
-      key={c.name}
+      onClick={() => void handleRoute(course.id)}
+      key={course.name}
     >
-      <td>{c.name}</td>
-      <td>{c.gradeLevel}</td>
-      <td>{c.numberOfStudents}</td>
-      <td>{c.day}</td>
+      <td>{course.name}</td>
+      <td>{course.gradeLevel}</td>
+      <td>{course.numberOfStudents}</td>
+      <td>{course.day}</td>
     </tr>
   ));
 
   return (
     <>
-      {classes?.length === 0 ? (
-        <div>No classes found. Create one to get started!</div>
+      {courses?.length === 0 ? (
+        <div>No courses found. Create one to get started!</div>
       ) : (
         <Table verticalSpacing="md" highlightOnHover>
           <thead>
             <tr>
-              <th>Class Name</th>
+              <th>Course Name</th>
               <th>Grade Level</th>
               <th>Number of Students</th>
               <th>Day</th>
