@@ -56,7 +56,48 @@ function MyApp({ Component, pageProps, session }: AppPropsWithLayout) {
           withGlobalStyles
           withNormalizeCSS
           emotionCache={emotionCache()}
-          theme={{ colorScheme }}
+          theme={{
+            colorScheme,
+            colors: {
+              primary: [
+                "#e9f7ef",
+                "#cee1d8",
+                "#b3ccbf",
+                "#95b8a6",
+                "#78a28d",
+                "#5f8974",
+                "#486b59",
+                "#334d40",
+                "#1d2e25",
+                "#00110b",
+              ],
+              base: [
+                "#f6f3eb",
+                "#dedcd3",
+                "#c8c4b9",
+                "#b2ad9c",
+                "#9c9580",
+                "#837c67",
+                "#666050",
+                "#494538",
+                "#2c2921",
+                "#110e04",
+              ],
+              light: [
+                "#f6f3eb",
+                "#dedcd3",
+                "#c8c4b9",
+                "#b2ad9c",
+                "#9c9580",
+                "#837c67",
+                "#666050",
+                "#494538",
+                "#2c2921",
+                "#110e04",
+              ],
+            },
+            primaryColor: "primary",
+          }}
         >
           <Notifications position="bottom-center" className="!bg-primary" />
           {showSidebarInMainLayout ? (
