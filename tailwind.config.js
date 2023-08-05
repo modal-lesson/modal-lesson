@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-const config = {
+module.exports = {
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
@@ -24,5 +24,3 @@ const config = {
     plugins: [require("@tailwindcss/typography")],
   },
 };
-
-module.exports = config;
