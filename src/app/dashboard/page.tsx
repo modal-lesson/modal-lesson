@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Modal Lesson",
+  title: "Modal Lesson - Dashboard",
   description: "An easy way to manage your lesson plans",
 };
 
 export default function Page() {
-  return <p>Landing page</p>;
+  return <div>dashboard page</div>;
 }
