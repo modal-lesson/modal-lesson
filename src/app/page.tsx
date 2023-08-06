@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SignIn } from "./sign-in";
 
 export const metadata: Metadata = {
   title: "Modal Lesson",
@@ -6,5 +7,10 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <p>Landing page</p>;
+  return (
+    <main>
+      <p>Landing page</p>
+      <SignIn />
+    </main>
+  );
 }

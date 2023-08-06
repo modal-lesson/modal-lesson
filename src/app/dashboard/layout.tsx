@@ -1,12 +1,15 @@
+import { getCurrentUser } from "@/lib/session";
 import { MainNav } from "./main-nav";
 import { Search } from "./search";
 import { UserNav } from "./user-nav";
 
-export default function DashboardLayout({
+export default async function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const user = await getCurrentUser();
+
   return (
     <>
       <header className="flex p-5 items-center justify-between gap-2 shadow-lg">
@@ -16,7 +19,7 @@ export default function DashboardLayout({
         </div>
         <div className="flex items-center gap-4">
           <Search />
-          <UserNav />
+          <UserNav user={user} />
         </div>
       </header>
       {children}
