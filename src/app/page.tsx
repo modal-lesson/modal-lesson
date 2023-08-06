@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: "An easy way to manage your lesson plans",
 };
 
-export default function Page() {
+export default async function Page() {
   return (
     <main>
       <p>Landing page</p>

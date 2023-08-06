@@ -6,7 +6,7 @@ import { signIn } from "next-auth/react";
 
 export function SignIn() {
   const handleSignIn = () => {
-    signIn("google", { callbackUrl: `${env.BASE_URL}/dashboard"` });
+    signIn("google", { callbackUrl: `${env.NEXT_PUBLIC_BASE_URL}/dashboard` });
   };
 
   return (
