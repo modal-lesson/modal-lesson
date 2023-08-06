@@ -62,7 +62,7 @@ export function UserNav({ user }: UserNavProps) {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
-          <Button onClick={handleSignOut} className="p-0 m-0" variant="ghost">
+          <Button onClick={handleSignOut} size="xs" variant="smallLink">
             Log out
           </Button>
           <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>

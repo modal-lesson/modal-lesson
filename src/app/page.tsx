@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { SignIn } from "./sign-in";
 
 export const metadata: Metadata = {
   title: "Modal Lesson",
@@ -10,7 +9,6 @@ export default async function Page() {
   return (
     <main>
       <p>Landing page</p>
-      <SignIn />
     </main>
   );
 }
