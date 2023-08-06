@@ -1,3 +1,4 @@
+import { Container } from "@/components/Container";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -6,5 +7,9 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <div>dashboard page</div>;
+  return (
+    <Container>
+      <h1 className="text-4xl font-bold">Dashboard</h1>
+    </Container>
+  );
 }
