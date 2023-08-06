@@ -2,11 +2,11 @@
 module.exports = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
-	],
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
   theme: {
     container: {
       center: true,
@@ -50,6 +50,23 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        gradient: {
+          DEFAULT: "hsl(var(--gradient-one))",
+          two: "hsl(var(--gradient-two))",
+        },
+        "mineral-green": {
+          50: "hsl(140, 18%, 97%)",
+          100: "hsl(143, 24%, 89%)",
+          200: "hsl(142, 23%, 78%)",
+          300: "hsl(145, 20%, 64%)",
+          400: "hsl(148, 17%, 50%)",
+          500: "hsl(149, 21%, 40%)",
+          600: "hsl(149, 22%, 32%)",
+          700: "hsl(150, 20%, 25%)",
+          800: "hsl(152, 17%, 22%)",
+          900: "hsl(152, 15%, 19%)",
+          950: "hsl(153, 22%, 10%)",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -73,4 +90,12 @@ module.exports = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-}
+};
+
+// https://uicolors.app/create // pallette: #344e41
+// border 400..
+// background button 500 // primary var
+// background button 600
+// background active 700
+// background button disabled 200 text 700
+// gradient 300 to 600

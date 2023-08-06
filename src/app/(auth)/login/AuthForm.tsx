@@ -34,7 +34,7 @@ export function AuthForm() {
   };
 
   return (
-    <Card className="w-[350px]">
+    <Card className="w-[350px] shadow-xl">
       <CardHeader>
         <CardTitle>Welcome to Modal Lesson</CardTitle>
         <CardDescription>Sign in to get started</CardDescription>

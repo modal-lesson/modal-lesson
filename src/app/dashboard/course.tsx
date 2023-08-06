@@ -21,7 +21,10 @@ export function Courses({ courses }: CoursesProps) {
   return (
     <>
       {courses.map((course) => (
-        <Card key={course.id}>
+        <Card
+          key={course.id}
+          className="shadow-lg hover:scale-105 transition duration-500 cursor-pointer"
+        >
           <CardHeader>
             <CardTitle>{course.name}</CardTitle>
             {/*TOOD: Add course description to schema */}
