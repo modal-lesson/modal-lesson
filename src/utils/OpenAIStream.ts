@@ -1,13 +1,10 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import {
   createParser,
   type ParsedEvent,
   type ReconnectInterval,
 } from "eventsource-parser";
 
-import { env } from "~/env.mjs";
+import { env } from "@/env.mjs";
 
 export type OpenAIStreamPayload = {
   model: string;
@@ -45,14 +42,12 @@ export async function OpenAIStream(payload: OpenAIStreamPayload) {
             return;
           }
           try {
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
             const json = JSON.parse(data);
             const text = json.choices[0].delta?.content || "";
             if (counter < 2 && (text.match(/\n/) || []).length) {
               // this is a prefix character (i.e., "\n\n"), do nothing
               return;
             }
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
             const queue = encoder.encode(text);
             controller.enqueue(queue);
             counter++;
@@ -68,7 +63,6 @@ export async function OpenAIStream(payload: OpenAIStreamPayload) {
       const parser = createParser(onParse);
       // https://web.dev/streams/#asynchronous-iteration
       for await (const chunk of res.body as any) {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         parser.feed(decoder.decode(chunk));
       }
     },
