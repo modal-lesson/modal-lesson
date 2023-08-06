@@ -19,7 +19,7 @@ type CoursesProps = {
 
 export function Courses({ courses }: CoursesProps) {
   return (
-    <>
+    <div className="flex gap-5 flex-wrap my-10">
       {courses.map((course) => (
         <Card
           key={course.id}
@@ -36,6 +36,6 @@ export function Courses({ courses }: CoursesProps) {
           </CardContent>
         </Card>
       ))}
-    </>
+    </div>
   );
 }

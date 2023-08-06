@@ -1,7 +1,10 @@
+import { Container } from "@/components/Container";
+import { CreateCourse } from "./create-course";
+
 export default function Page() {
   return (
-    <div>
-      <p>Course page</p>
-    </div>
+    <Container>
+      <CreateCourse />
+    </Container>
   );
 }

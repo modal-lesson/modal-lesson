@@ -21,9 +21,8 @@ export default async function Page() {
   return (
     <Container>
       <h1 className="text-4xl font-bold">Dashboard</h1>
-      <div className="flex my-10">
-        <Courses courses={courses} />
-      </div>
+
+      <Courses courses={courses} />
     </Container>
   );
 }
