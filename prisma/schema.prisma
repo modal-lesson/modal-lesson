@@ -83,11 +83,11 @@ model LessonPlan {
 
 model Course {
   id               String       @id @default(cuid())
-  name             String       @unique
+  name             String
   gradeLevel       String?
   numberOfStudents Int?
-  classStartDate   DateTime?
-  classEndDate     DateTime?
+  courseStartDate  DateTime?
+  courseEndDate    DateTime?
   startTime        DateTime?    @db.Time
   endTime          DateTime?    @db.Time
   user             User?        @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)

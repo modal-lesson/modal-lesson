@@ -1,23 +1,14 @@
-// "use server";
+import { env } from "@/env.mjs";
+import { CourseFormSchema } from "@/validation/course";
 
-// import { getCurrentUser } from "@/lib/session";
-// import { prisma } from "@/server/db";
-// import dayjs from "dayjs";
+export async function createCourse(data: CourseFormSchema) {
+  const res = await fetch(`${env.NEXT_PUBLIC_BASE_URL}/api/course/create`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
 
-// export async function createCourse() {
-//   const user = await getCurrentUser();
-//   const createCourse = await prisma.course.create({
-//     data: {
-//       ...input,
-//       startTime: dayjs(input.startTime, "HH:mm").toDate(),
-//       endTime: dayjs(input.endTime, "HH:mm").toDate(),
-//       user: {
-//         connect: {
-//           id: user?.id,
-//         },
-//       },
-//     },
-//   });
-
-//   return createCourse;
-// }
+  return res;
+}

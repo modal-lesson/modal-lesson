@@ -1,5 +1,6 @@
-import { Providers } from "@/components/Providers";
 import "./globals.css";
+import { Providers } from "@/components/Providers";
+import { Toaster } from "@/components/ui/toaster";
 
 export default function RootLayout({
   children,
@@ -10,6 +11,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning={true}>
       <body className="bg-background">
         <Providers>{children}</Providers>
+        <Toaster />
       </body>
     </html>
   );
